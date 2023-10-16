@@ -1,0 +1,93 @@
+/* CEOProfil.css */
+.container {
+    display: flex;
+    flex-direction: row;
+    align-items: center; 
+   /* pour centrer verticalement */
+ /* pour centrer horizontalement */
+    width: 100%; 
+    height: 98vh;/* ajustez selon vos besoins */
+}
+
+.execution-board {
+    padding: 20px;
+    justify-content: flex-start;
+    flex-grow: 1;
+    width: 70%;
+    background-color: lightblue;
+    height: 93vh;
+}
+
+.execution-container {
+    display: flex;
+    justify-content: space-between;
+    border: none; /* Ajout d'une bordure autour du conteneur des tâches */
+    position: relative;
+    height: 80vh;
+    background-color: white;
+    margin: 30px;
+}
+
+.executions {
+    width: 50%; /* Modification de la largeur pour tenir compte de la bordure */
+     /* Ajout d'une bordure entre les colonnes de tâches */
+}
+
+.execution {
+    background-color: rgb(136, 144, 146);
+    padding: 2px;
+    margin: 20px;
+   /* Ajout d'une bordure autour des tâches individuelles */
+    border-radius: 5px;
+}
+
+.executions .DIO {
+    background-color: lightblue;
+}
+
+.my {
+    border-right: 1px solid black;
+}
+
+
+h2 {
+    color: white;
+    background-color: darkblue; /* Ajout d'un fond pour les en-têtes */
+    margin: 0px; /* Suppression des marges pour les en-têtes */
+    padding: 5px; /* Ajout d'un peu de padding pour les en-têtes */
+    height: 15%;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+}
+
+h1 {
+    text-align: center;
+}
+
+.fini { /* Change la couleur du texte en rouge, par exemple */
+    background-color: rgba(32, 65, 163, 0.58);/* Ajustez la taille de la police selon vos besoins */
+    /* Autres styles CSS que vous souhaitez appliquer */
+}
+
+.accept-button {
+    background-color: green;
+    color: black;
+    border:none;
+    cursor: pointer; /* Pour changer le curseur en main lorsque vous survolez le bouton */
+    border-radius: 40px; /* Pour avoir des coins arrondis sur le bouton */
+ 
+    justify-content: center;
+    align-items: center;
+    padding: 5px 10px;
+    font-size: 20px; 
+    margin: 5px;
+    border: 1px solid black;
+    /* Autres styles selon vos besoins */
+}
+
+.buttons-container {
+    position: relative;
+    bottom: 0px;
+    left: 0px;
+}

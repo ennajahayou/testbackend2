@@ -1,0 +1,136 @@
+.messaging-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  /* pour centrer verticalement */
+  /* pour centrer horizontalement */
+  width: 100%; /* ajustez selon vos besoins */
+  height: auto; /* ajustez selon vos besoins */
+}
+
+.messages {
+  background-color: white;
+  padding: 20px; /* Espace à l'intérieur des rectangles */
+  /* Espace entre les rectangles */
+  /* Bordure autour des rectangles */
+  border-radius: 5px; /* Coins arrondis */
+  width: 90%;
+  height: 480px;
+  margin: auto;
+  overflow-y: auto; /* pour centrer horizontalement */
+}
+
+.message.bubble {
+  background-color: rgb(0, 174, 255); /* couleur du fond d'écran */
+  border-radius: 15px;
+  margin: 20px; /* arrondit les coins */
+  margin-bottom: 30px; /* espace entre les messages */
+  padding: 30px; /* espace à l'intérieur des bulles de message */
+  color: white; /* couleur du texte pour une meilleure visibilité sur le fond bleu */
+}
+
+.message.button {
+  background-color: rgb(255, 255, 255); /* couleur du fond d'écran */
+  border-radius: 5px;
+  margin: 5px; /* arrondit les coins */
+  padding: 5px; /* espace à l'intérieur des bulles de message */
+  color: rgb(
+    0,
+    0,
+    0
+  ); /* couleur du texte pour une meilleure visibilité sur le fond bleu */
+}
+
+.input-container {
+  position: relative;
+
+  background-color: rgb(11, 18, 96);
+  padding: 20px; /* Espace à l'intérieur des rectangles */
+  /* Espace entre les rectangles */
+  /* Bordure autour des rectangles */
+  /* Coins arrondis */
+  width: 90%;
+  height: 50px;
+  margin: auto;
+  /* pour centrer horizontalement */
+}
+
+.input-submit {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  background-color: rgba(9, 61, 48, 0.852);
+  padding: 20px; /* Espace à l'intérieur des rectangles */
+  /* Espace entre les rectangles */
+  /* Bordure autour des rectangles */
+  /* Coins arrondis */
+  width: 90%;
+  height: 20px;
+  border-radius: 20px;
+  margin: auto;
+  /* pour centrer horizontalement */
+}
+
+.message-input {
+  flex-grow: 2; /* Cela permettra aux deux éléments de prendre autant d’espace que possible */
+  padding: 15px; /* Ajoute du remplissage pour augmenter la taille des éléments */
+  background-color: rgba(
+    9,
+    61,
+    48,
+    0.852
+  ); /* Ajustez la couleur de fond selon vos besoins */
+  color: white; /* Ajustez la couleur du texte selon vos besoins */
+  border: none;
+  font-size: large; /* Supprime la bordure, ajustez selon vos besoins */
+}
+
+.send-button {
+  /* Supprime la bordure, ajustez selon vos besoins */
+  width: 15%;
+  padding: 15px 15px;
+  font-size: 15px; /* Ajustez la taille de la police si nécessaire */
+  border: none; /* Pour supprimer la bordure par défaut des boutons */
+  background-color: white; /* Pour changer la couleur de fond du bouton */
+  color: rgba(
+    6,
+    38,
+    12,
+    0.852
+  ); /* Pour changer la couleur du texte du bouton */
+  cursor: pointer; /* Pour changer le curseur en main lorsque vous survolez le bouton */
+  border-radius: 40px;
+  font-weight: bold;
+}
+
+.submition-pop-up {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: rgba(114, 114, 114, 0.8);
+  width: 350px;
+  height: 150px;
+  border-radius: 10px;
+  padding: 20px;
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.75);
+}
+
+.submitButton {
+  background-color: #211c66;
+  border: none;
+  color: white;
+  /* padding: 15px 32px; */
+  width: 300px;
+  height: 50px;
+  text-align: center;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+  border-radius: 10px;
+}
