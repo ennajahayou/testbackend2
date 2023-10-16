@@ -1,4 +1,4 @@
--- Active: 1696356368132@@127.0.0.1@3306@thankstip
+-- Active: 1696927941157@@127.0.0.1@3306@thankstip
 -- Table des users
 CREATE TABLE users (
     id INT AUTO_INCREMENT PRIMARY KEY,
@@ -45,12 +45,16 @@ CREATE TABLE projects_dio (
 )ENGINE=INNODB;
 
 -- Table Execution
-CREATE TABLE execution (
+ CREATE TABLE execution (
     id INT AUTO_INCREMENT PRIMARY KEY,
+    creation_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    last_updated TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     id_dio INT,
     exec_description VARCHAR(255),
     id_talent INT,
     id_ceo INT,
+    candidate_description TEXT,
+    delivery_date TIMESTAMP,
     score_tips INT DEFAULT 0,
     score_thanks INT DEFAULT 0,
     status_ VARCHAR(25),
@@ -60,9 +64,9 @@ CREATE TABLE execution (
     FOREIGN KEY (id_talent) REFERENCES users(id),
     FOREIGN KEY (id_ceo) REFERENCES users(id),
     FOREIGN KEY (id_dio) REFERENCES dio(id)
-)ENGINE=INNODB;;
+)ENGINE=INNODB;
 
--- Table Rewiew
+-- Table Review
 
 CREATE TABLE review (
     id_review INT PRIMARY KEY,
