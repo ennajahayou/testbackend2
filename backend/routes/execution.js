@@ -12,6 +12,8 @@ router.post("/", function (req, res, next) {
   const creatorId = req.body.creatorId;
   const dioId = req.body.dioId;
   const doItMyself = req.body.doItMyself;
+  const howMake = req.body.howMake;
+  const deadline = req.body.deadline;
 
   let status = "Not assigned";
   if (doItMyself) {
@@ -19,34 +21,33 @@ router.post("/", function (req, res, next) {
   }
 
   const connection = createConnection();
-  const sqlGetCEO = `SELECT id_ceo FROM dio WHERE id = ${dioId}`;
+  const sqlGetCEO = `SELECT id_ceo FROM dio WHERE id = ?`;
 
-  connection.query(sqlGetCEO, [], (err, rows) => {
+  connection.query(sqlGetCEO, [dioId], (err, rows) => {
     if (err) {
       throw err;
     }
     if (!rows.length) {
       console.log("No dio found");
       res.status(400).send("No dio found");
-      throw new Error("No dio found");
+      // throw new Error("No dio found");
       connection.close();
-    }
-
-    const ceoId = rows[0].id_ceo;
-
-    if (ceoId === creatorId) {
-      const sqlAddExecution = `INSERT INTO execution (exec_description, id_talent, id_ceo, id_dio, status_, ceo_validated) VALUES ('${executionDescription}', ${talentId}, ${creatorId}, ${dioId}, '${status}', true)`;
-      connection.query(sqlAddExecution, [], (err) => {
-        if (err) {
-          throw err;
-        }
-        console.log("Execution created");
-        res.status(200).send("Execution created");
-
-        connection.close();
-      });
     } else {
-      const sqlAddExecution = `INSERT INTO execution (exec_description, id_talent, id_ceo, id_dio, status_, ceo_validated) VALUES ('${executionDescription}', ${talentId}, ${creatorId}, ${dioId}, '${status}', false)`;
+      const ceoId = rows[0].id_ceo;
+
+      let sqlAddExecution = "";
+      if (req.body.deadline) {
+        sqlAddExecution = `INSERT INTO execution (exec_description, id_talent, id_ceo, id_dio, status_, ceo_validated, candidate_description, deadline) 
+                                VALUES ('${executionDescription}', ${talentId}, ${creatorId}, ${dioId}, '${status}', ${
+          ceoId === creatorId
+        }, '${howMake}', '${deadline}')`;
+      } else {
+        sqlAddExecution = `INSERT INTO execution (exec_description, id_talent, id_ceo, id_dio, status_, ceo_validated)
+                            VALUES ('${executionDescription}', ${talentId}, ${creatorId}, ${dioId}, '${status}', ${
+          ceoId === creatorId
+        })`;
+      }
+
       connection.query(sqlAddExecution, [], (err) => {
         if (err) {
           throw err;
@@ -56,6 +57,75 @@ router.post("/", function (req, res, next) {
 
         connection.close();
       });
+
+      // if (ceoId === creatorId) {
+      //   const sqlAddExecution = `INSERT INTO execution (exec_description, id_talent, id_ceo, id_dio, status_, ceo_validated) VALUES ('${executionDescription}', ${talentId}, ${creatorId}, ${dioId}, '${status}', true)`;
+      //   connection.query(sqlAddExecution, [], (err) => {
+      //     if (err) {
+      //       throw err;
+      //     }
+      //     console.log("Execution created");
+      //     res.status(200).send("Execution created");
+
+      //     connection.close();
+      //   });
+      // } else {
+      //   const sqlAddExecution = `INSERT INTO execution (exec_description, id_talent, id_ceo, id_dio, status_, ceo_validated) VALUES ('${executionDescription}', ${talentId}, ${creatorId}, ${dioId}, '${status}', false)`;
+      //   connection.query(sqlAddExecution, [], (err) => {
+      //     if (err) {
+      //       throw err;
+      //     }
+      //     console.log("Execution created");
+      //     res.status(200).send("Execution created");
+
+      //     connection.close();
+      //   });
+      // }
+    }
+  });
+});
+
+/* Add an execution with the work already done */
+router.post("/workDone", function (req, res, next) {
+  const { userId, executionDescription, dioId, execContent } = req.body;
+  const connection = createConnection();
+  const sqlGetCEO = `SELECT id_ceo FROM dio WHERE id = ?`;
+
+  connection.query(sqlGetCEO, [dioId], (err, rows) => {
+    if (err) {
+      throw err;
+    }
+    if (!rows.length) {
+      console.log("No dio found");
+      res.status(400).send("No dio found");
+      // throw new Error("No dio found");
+      connection.close();
+    } else {
+      const ceoId = rows[0].id_ceo;
+      const sql = `
+        INSERT INTO execution (exec_description, id_talent, id_ceo, id_dio, status_, ceo_validated, exec_content) VALUES (?, ?, ?, ?, ?, ?, ?)`;
+      connection.query(
+        sql,
+        [
+          executionDescription,
+          userId,
+          userId,
+          dioId,
+          "In review",
+          ceoId == userId,
+          execContent,
+        ],
+        (err, rows) => {
+          if (err) {
+            res;
+            throw err;
+          }
+          console.log({ rows });
+          res.send(rows);
+
+          connection.close();
+        }
+      );
     }
   });
 });
@@ -71,39 +141,44 @@ router.post("/assign", function (req, res, next) {
   const deliverDate = req.body.deliverDate;
 
   connection = createConnection();
-  sql = `UPDATE execution SET id_talent = ${userId}, candidate_description = '${howMake}', delivery_date = '${deliverDate}', status_ = 'In progress' WHERE id = ${executionId}`;
+  sql = `UPDATE execution SET id_talent = ?, candidate_description = ?, deadline = ?, status_ = ? WHERE id = ?`;
 
-  connection.query(sql, [], (err, rows) => {
-    if (err) {
-      throw err;
+  connection.query(
+    sql,
+    [userId, howMake, deliverDate, "In progress", executionId],
+    (err, rows) => {
+      if (err) {
+        throw err;
+      }
+      console.log("Execution assigned");
+      res.status(200).send("Execution assigned");
+      connection.close();
     }
-    console.log("Execution assigned");
-    res.status(200).send("Execution assigned");
-    connection.close();
-  });
+  );
 });
 
 /* Set an execution to In review */
 // TODO : Handle the deposit of a txt to begin, then the deposit of a file
 router.post("/setInReview", function (req, res, next) {
-  console.log("Execution in review request received");
-  console.log(req.body);
-
   const executionId = req.body.executionId;
+  const userId = req.body.userId;
+  const execContent = req.body.execContent;
 
-  db = new sqlite3.Database("database.db");
   const connection = createConnection();
-  sql = `UPDATE execution SET status_ = 'In review' WHERE id = ${executionId}`;
+  sql = `UPDATE execution SET status_ = ?, id_talent = ?, exec_content = ? WHERE id = ?`;
 
-  connection.query(sql, [], (err) => {
-    if (err) {
-      throw err;
+  connection.query(
+    sql,
+    ["In review", userId, execContent, executionId],
+    (err) => {
+      if (err) {
+        res.status(500);
+      } else {
+        res.status(200).send("Execution in review");
+      }
+      connection.close();
     }
-    console.log("Execution in review");
-    res.status(200).send("Execution in review");
-
-    connection.close();
-  });
+  );
 });
 
 module.exports = router;

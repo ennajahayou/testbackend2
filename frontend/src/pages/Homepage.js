@@ -1,16 +1,18 @@
 import React from "react";
 import "./Homepage.css";
-import Sidebar from "../Components/Sidebar";
+import Sidebar from "../Components/Sidebarhomepage";
 import DIOList from "../Components/DIOList";
+
+import logo3 from '../images/logo3.png';
+
 
 const dioData = [
   {
     id: 1,
-    name: "DIO 1",
+    name: "Dio Thanks and tip",
     description:
-      "Description de DIO 1 Description de DIO 1 Description de DIO 1 Description de DIO 1 Description de DIO 1 Description de DIO 1 Description de DIO 1 Description de DIO 1 Description de DIO 1 Description de DIO 1 Description de DIO 1 Description de DIO 1 Description  ",
+      "Creation of the start up Thanks and tip : website creation/ application",
   },
-  { id: 2, name: "DIO 2", description: "Description de DIO 2" },
 ];
 
 const Homepage = () => (
@@ -18,7 +20,11 @@ const Homepage = () => (
     <Sidebar />
     <div className="main-content">
       <div className="logo-bar">
-        <h1 className="logo">THANKS AND TIP</h1>
+
+
+  
+      <img className="logo" src={logo3}/>
+
       </div>
       <h4 className="titre">My DIO</h4>
       <DIOList dioData={dioData} />

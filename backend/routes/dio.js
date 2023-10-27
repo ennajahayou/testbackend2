@@ -11,7 +11,7 @@ router.get("/", function (req, res, next) {
     if (err) {
       throw err;
     }
-    console.log({ rows });
+    // console.log({ rows });
     res.send(rows);
 
     connection.close();
@@ -36,16 +36,19 @@ router.post("/", function (req, res, next) {
 
 /* GET dio list of execution of a DIO. */
 router.get("/execution", function (req, res, next) {
+  console.log(req.query);
   dioId = req.query.dioId;
 
   const connection = createConnection();
-  let sql = `SELECT id, exec_description, id_talent, id_ceo, score_tips, score_thanks, id_dio, status_ FROM execution WHERE id_dio = ${dioId}`;
-
-  connection.query(sql, [], (err, rows) => {
+  const sql = `SELECT execution.id, execution.exec_description, users.user_name AS talent_name, execution.status_, execution.deadline
+                FROM execution 
+                JOIN users ON execution.id_talent = users.id 
+                WHERE execution.id_dio = ? AND ceo_validated = 1
+                ORDER BY execution.last_updated DESC`;
+  connection.query(sql, [dioId], (err, rows) => {
     if (err) {
       throw err;
     }
-    console.log({ rows });
     res.send(rows);
 
     connection.close();
@@ -54,10 +57,12 @@ router.get("/execution", function (req, res, next) {
 
 /* ADD user to DIO */
 router.post("/addUser", function (req, res, next) {
+  const userId = req.body.id_user;
+  const dioId = req.body.id_dio;
   const connection = createConnection();
-  let sql = `INSERT INTO user_dio (id_user, id_dio) VALUES (${req.body.id_user}, ${req.body.id_dio})`;
+  let sql = `INSERT INTO user_dio (id_user, id_dio) VALUES (?, ?)`;
 
-  connection.query(sql, [], (err, rows) => {
+  connection.query(sql, [userId, dioId], (err, rows) => {
     if (err) {
       throw err;
     }

@@ -37,45 +37,49 @@
 
 /* Le conteneur des DIO, si vous en avez un */
 .dio-list {
-    width: 90%; /* Fixer la largeur à 90% de la largeur du parent */
-    margin: auto; /* Ajustez selon vos besoins */
+  width: 90%; /* Fixer la largeur à 90% de la largeur du parent */
+  margin: auto; /* Ajustez selon vos besoins */
 }
 
 /* Style pour chaque DIO */
 .dio-item {
-    background-color: white;
-    padding: 5px; /* Espace à l'intérieur des rectangles */
-    margin-bottom: 15px; /* Espace entre les rectangles */
-    border: 1px solid #ccc; /* Bordure autour des rectangles */
-    border-radius: 5px; /* Coins arrondis */
-    display: flex;
-    align-items: center;
-    justify-content: space-around ; 
+  background-color: white;
+  padding: 5px; /* Espace à l'intérieur des rectangles */
+  margin-bottom: 15px; /* Espace entre les rectangles */
+  border: 1px solid #ccc; /* Bordure autour des rectangles */
+  border-radius: 5px; /* Coins arrondis */
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  font-family: "Kumbh Sans";
 }
 
 .dio-text {
-    width: 70%;
-    font-size: 20px; /* Ajustez la valeur en fonction de vos besoins */
+  width: 70%;
+  font-size: 20px;
+  font-family: "Kumbh Sans"; /* Ajustez la valeur en fonction de vos besoins */
 }
 
 .participate-button {
-    width: 25vh;
-    padding: 15px 20px;
-    font-size: 30px; /* Ajustez la taille de la police si nécessaire */
-    border: none; /* Pour supprimer la bordure par défaut des boutons */
-    background-color: blue; /* Pour changer la couleur de fond du bouton */
-    color: white; /* Pour changer la couleur du texte du bouton */
-    cursor: pointer; /* Pour changer le curseur en main lorsque vous survolez le bouton */
-    border-radius: 40px; /* Pour avoir des coins arrondis sur le bouton */
- 
-    justify-content: center;
-    align-items: center;
+  width: 25vh;
+  padding: 15px 20px;
+  font-size: 30px; /* Ajustez la taille de la police si nécessaire */
+  border: none; /* Pour supprimer la bordure par défaut des boutons */
+  background-color: blue; /* Pour changer la couleur de fond du bouton */
+  color: white; /* Pour changer la couleur du texte du bouton */
+  cursor: pointer; /* Pour changer le curseur en main lorsque vous survolez le bouton */
+  border-radius: 40px; /* Pour avoir des coins arrondis sur le bouton */
+
+  justify-content: center;
+  align-items: center;
+  font-family: "Kumbh Sans";
+  background-color: #aad9db;
 }
 
 .participate-button:hover {
-    background-color: darkblue; 
+  background-color: darkblue;
 }
 
 .dio-item h3 {
-    font-size: 35px; /* Ou la taille que vous souhaitez */
+  font-size: 35px; /* Ou la taille que vous souhaitez */
 }

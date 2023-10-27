@@ -54,12 +54,12 @@ CREATE TABLE projects_dio (
     id_talent INT,
     id_ceo INT,
     candidate_description TEXT,
-    delivery_date TIMESTAMP,
+    deadline TIMESTAMP,
     score_tips INT DEFAULT 0,
     score_thanks INT DEFAULT 0,
     status_ VARCHAR(25),
     ceo_validated BOOLEAN,
-    archived BOOLEAN,
+    archived BOOLEAN DEFAULT FALSE,
     CONSTRAINT CK_Status CHECK (status_ IN ('Not assigned', 'In progress', 'In review', 'Done')),
     FOREIGN KEY (id_talent) REFERENCES users(id),
     FOREIGN KEY (id_ceo) REFERENCES users(id),
@@ -69,13 +69,39 @@ CREATE TABLE projects_dio (
 -- Table Review
 
 CREATE TABLE review (
-    id_review INT PRIMARY KEY,
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    id_execution INT,
+    id_issuer INT,
+    comments_ TEXT,
+    difficulty INT,
+    reactivity INT,
+    FOREIGN KEY (id_issuer) REFERENCES users(id),
+    FOREIGN KEY (id_execution) REFERENCES execution(id)
+);
+
+
+CREATE TABLE peer_review (
+    id INT AUTO_INCREMENT PRIMARY KEY,
     id_execution INT,
     id_issuer INT,
     comments TEXT,
-    Difficulty VARCHAR(25) ,
-    Reactivity VARCHAR(25),
-    CONSTRAINT CK_Difficulty CHECK (Difficulty IN ('Easy', 'Average', 'Difficult', 'Very difficult')),
+    respect INT,
+    expectations INT,
+    result INT,
+    quality INT,
+    goal INT,
+    satisfaction INT,
+    FOREIGN KEY (id_issuer) REFERENCES users(id),
+    FOREIGN KEY (id_execution) REFERENCES execution(id)
+);
+
+CREATE TABLE ceo_review (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    id_execution INT,
+    id_issuer INT,
+    comments TEXT,
+    expectations INT,
+    reactivity INT,
     FOREIGN KEY (id_issuer) REFERENCES users(id),
     FOREIGN KEY (id_execution) REFERENCES execution(id)
 );
@@ -91,3 +117,7 @@ CREATE TABLE thanks (
     FOREIGN KEY (id_receiver) REFERENCES users(id),
     FOREIGN KEY (id_execution) REFERENCES execution(id)
 )ENGINE=INNODB;
+
+
+ALTER TABLE execution
+ADD exec_content TEXT DEFAULT NULL;

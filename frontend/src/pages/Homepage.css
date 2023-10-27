@@ -35,36 +35,44 @@
 
 .App {
   display: flex;
+
   /* autres styles */
 }
 .main-content {
   flex-grow: 1;
-  background-color: rgba(0, 76, 139, 0.756);
+  background-color: #b7d6ed;
   width: 70%;
+
   /* Ceci permet au contenu principal de prendre toute la largeur restante */
 }
 
 .logo-bar {
   text-align: center;
-  margin-bottom: 20px;
-  margin-bottom: 80px; /* Pour ajouter un peu d'espace entre le titre et le contenu suivant */
+  margin: 0px;
+  /* Pour ajouter un peu d'espace entre le titre et le contenu suivant */
 }
 
 .logo {
   font-size: 36px; /* Vous pouvez ajuster la taille selon vos besoins */
   font-weight: bold; /* Pour rendre le texte en gras */
-  color: #333; /* Vous pouvez choisir la couleur que vous préférez */
+  color: #333;
+  font-family: "Kumbh Sans" sans-serif;
+  width: 700px;
+  height: 150px;
+  /* Vous pouvez choisir la couleur que vous préférez */
 }
 
 .titre {
   font-size: 28px; /* Ajustez la taille selon vos besoins */
   text-align: left;
-  margin: 60px; /* Ajustez la marge selon vos besoins pour aligner le texte à gauche */
+  margin-left: 60px; /* Ajustez la marge selon vos besoins pour aligner le texte à gauche */
   color: #666;
 
   border-bottom: 1px solid white; /* Ajoute une bordure en bas de l'élément */
   padding-bottom: 10px; /* Ajoute un espace en dessous du texte et au-dessus de la ligne */
-  margin-bottom: 50px; /* Choisissez la couleur que vous préférez */
+  margin-bottom: 50px;
+  font-family: "Kumbh Sans";
+  /* Choisissez la couleur que vous préférez */
 }
 
 /* Le conteneur des DIO, si vous en avez un */

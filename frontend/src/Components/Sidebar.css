@@ -29,37 +29,51 @@
 .sidebar-section:last-child {
     border-bottom: none;
 }
-*/ 
+*/
 
 /* Le conteneur de la barre latérale */
 .sidebar {
-    display: flex;
-    flex-direction: column;
-    width: 50vh;
-    height: 98vh; 
+  display: flex;
+  flex-direction: column;
+  width: 50vh;
+  height: 98vh;
 }
-
 
 /* Tous les boutons de la barre latérale */
 .sidebar-section {
-    flex-grow: 1;
-    flex-basis: 1;
-    background-color: rgba(0, 88, 139, 0.336);
-    font-size: xx-large;
-    border: 1px solid white;
-    cursor: pointer;
+  flex-grow: 1;
+  flex-basis: 1;
+  background-color: #63798a;
+  font-size: xx-large;
+  border: 1px solid white;
+  cursor: pointer;
+  font-family: "Kumbh Sans";
+  color: white;
 }
 
 /* Le bouton Work Space */
 .sidebar-section:first-child {
-    flex-grow: 3.5; /* Lui donne plus d'espace que les autres boutons */
+  height: 150px; /* Lui donne plus d'espace que les autres boutons */
 }
 
 .sidebar-section.espace {
-    flex-grow: 5; /* Assurez-vous que la div est affichée en tant que bloc pour respecter la hauteur définie */
+  flex-grow: 5; /* Assurez-vous que la div est affichée en tant que bloc pour respecter la hauteur définie */
 }
 
+/* Pour les liens */
+.sidebar-section a {
+  color: inherit; /* utilisez la couleur que vous voulez */
+  text-decoration: none; /* si vous ne voulez pas de soulignement */
+}
 
+.sidebar-section a:visited {
+  color: inherit; /* utilisez la même couleur que le lien normal pour neutraliser l'effet du lien visité */
+}
 
+.sidebar-section a:hover {
+  color: inherit; /* utilisez la même couleur que le lien normal pour neutraliser l'effet du survol */
+}
 
-
+.sidebar-section a:active {
+  color: inherit; /* utilisez la même couleur que le lien normal pour neutraliser l'effet du lien actif */
+}
