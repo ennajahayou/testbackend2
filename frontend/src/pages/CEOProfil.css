@@ -7,6 +7,7 @@
  /* pour centrer horizontalement */
     width: 100%; 
     height: 98vh;/* ajustez selon vos besoins */
+    font-family: 'Kumbh Sans';
 }
 
 .ceo-profile {
@@ -14,8 +15,10 @@
     justify-content: flex-start;
     flex-grow: 1;
     width: 70%;
-    background-color: lightblue;
+    background-color: #B7D6ED;
     height: 93vh;
+    font-family: 'Kumbh Sans';
+    
 }
 
 .tasks-container {
@@ -26,6 +29,7 @@
     height: 80vh;
     background-color: white;
     margin: 30px;
+
 }
 
 .tasks {
@@ -63,17 +67,19 @@ h2 {
 
 h1 {
     text-align: center;
+    color:#082247;
+    font-size: xx-large;
 }
 
 .fini { /* Change la couleur du texte en rouge, par exemple */
-    background-color: rgba(32, 65, 163, 0.58);/* Ajustez la taille de la police selon vos besoins */
+    background-color: rgba(11, 42, 135, 0.58);/* Ajustez la taille de la police selon vos besoins */
     /* Autres styles CSS que vous souhaitez appliquer */
 }
 
 .accept-button {
     background-color: green;
     color: black;
-    border:none;
+    border:1px solid black;
     cursor: pointer; /* Pour changer le curseur en main lorsque vous survolez le bouton */
     border-radius: 40px; /* Pour avoir des coins arrondis sur le bouton */
  
@@ -82,21 +88,23 @@ h1 {
     padding: 5px 10px;
     font-size: 13px; 
     margin: 5px;
+    font-family: 'Kumbh Sans';
     /* Autres styles selon vos besoins */
 }
 
 .refuse-button {
     background-color: red;
     color: black;
-    border:none;
+    border:1px solid black;
     cursor: pointer; /* Pour changer le curseur en main lorsque vous survolez le bouton */
     border-radius: 40px; /* Pour avoir des coins arrondis sur le bouton */
  
     justify-content: center;
     align-items: center;
     padding: 5px 10px;
-    font-size: 13px; 
+    font-size: 18px; 
     margin: 5px;
+    font-family: 'Kumbh Sans';
     /* Autres styles selon vos besoins */
 }
 
@@ -110,7 +118,7 @@ h1 {
     justify-content: center;
     align-items: center;
     padding: 5px 10px;
-    font-size: 13px; 
+    font-size: 15px; 
     margin: 5px;
     /* Autres styles selon vos besoins */
 }
@@ -121,4 +129,25 @@ h1 {
     left: 170px;
     display: flex;
     gap: 10px; /* Ajoutez un espace entre les boutons */
+}
+
+.task1 {
+    background-color: lightblue;
+    padding: 2px;
+    margin: 20px;
+   /* Ajout d'une bordure autour des tâches individuelles */
+    border-radius: 5px;
+    display: flex;         /* Fait de .task un conteneur flex */
+    justify-content: space-between; /* Met de l'espace entre les éléments enfants */
+    align-items: center; 
+}
+
+.statuss {
+    display:inline-block;
+    padding: 10px;
+    border-radius: 20px;
+    color: white;
+    background-color: #B9B9B9;
+    font-family:'Kumbh Sans';
+    margin-right: 10px;
 }

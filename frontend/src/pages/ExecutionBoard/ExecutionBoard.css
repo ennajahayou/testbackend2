@@ -1,64 +1,231 @@
-/* App.css */
+/* CEOProfil.css */
 .container {
-    font-family: Arial, sans-serif;
-    width: 80%;
-    margin: 50px auto;
-    background-color: #e9f0f4;
-    border-radius: 10px;
-    padding: 20px;
-  }
-  
-  h1 {
-    text-align: center;
-    font-size: 24px;
-    color: #333;
-    margin-bottom: 40px;
-  }
-  
-  .board {
-    display: flex;
-    justify-content: space-between;
-  }
-  
-  .column {
-    width: 48%;
-    background-color: #3f4d63;
-    border-radius: 10px;
-    padding: 15px;
-  }
-  
-  h2 {
-    color: white;
-    font-size: 20px;
-    margin-bottom: 20px;
-    text-align: center;
-  }
-  
-  .task {
-    background-color: #c1cfd7;
-    border-radius: 5px;
-    padding: 15px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-  
-  p {
-    margin: 0;
-    font-size: 16px;
-  }
-  
-  button {
-    padding: 10px 20px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 16px;
-  }
-  
-  .column .task button {
-    background-color: #5e6d82;
-    color: white;
-  }
-  
-  
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  /* pour centrer verticalement */
+  /* pour centrer horizontalement */
+  width: 100%;
+  height: 98vh; /* ajustez selon vos besoins */
+}
+
+.execution-board {
+  padding: 20px;
+  justify-content: flex-start;
+  flex-grow: 1;
+  width: 70%;
+  background-color: #b7d6ed;
+  height: 93vh;
+  font-family: "Kumbh Sans";
+}
+
+.execution-container {
+  display: flex;
+  justify-content: space-between;
+  border: none; /* Ajout d'une bordure autour du conteneur des tâches */
+  position: relative;
+  height: 80vh;
+  background-color: white;
+  margin: 30px;
+}
+
+.executions {
+  width: 50%; /* Modification de la largeur pour tenir compte de la bordure */
+  /* Ajout d'une bordure entre les colonnes de tâches */
+}
+
+.execution {
+  background-color: #a6a7a8;
+  padding: 2px;
+  margin: 20px;
+  /* Ajout d'une bordure autour des tâches individuelles */
+  border-radius: 5px;
+}
+
+.executions .DIO {
+  background-color: lightblue;
+}
+
+.my {
+  border-right: 1px solid black;
+}
+
+h2 {
+  color: white;
+  background-color: #082247; /* Ajout d'un fond pour les en-têtes */
+  margin: 0px; /* Supprssion des marges pour les en-têtes */
+  padding: 5px; /* Ajout d'un peu de padding pour les en-têtes */
+  height: 15%;
+  align-items: center;
+  justify-content: center;
+  display: flex;
+}
+
+h1 {
+  text-align: center;
+  color: #082247;
+  font-size: xx-large;
+}
+
+.fini {
+  /* Change la couleur du texte en rouge, par exemple */
+  background-color: #58bada; /* Ajustez la taille de la police selon vos besoins */
+  /* Autres styles CSS que vous souhaitez appliquer */
+}
+
+.acceptbutton {
+  background-color: #082247;
+  color: black;
+  border: none;
+  cursor: pointer; /* Pour changer le curseur en main lorsque vous survolez le bouton */
+  border-radius: 40px; /* Pour avoir des coins arrondis sur le bouton */
+
+  justify-content: center;
+  align-items: center;
+  padding: 5px 10px;
+  font-size: 20px;
+  margin: 5px;
+  border: 1px solid black;
+  background-color: #aad9db;
+  /* Autres styles selon vos besoins */
+}
+
+.buttons-container {
+  position: relative;
+  bottom: 0px;
+  left: 0px;
+}
+
+.thanks-button {
+  background-color: #ddc7c7;
+  color: black;
+  border: none;
+  cursor: pointer; /* Pour changer le curseur en main lorsque vous survolez le bouton */
+  border-radius: 40px; /* Pour avoir des coins arrondis sur le bouton */
+
+  justify-content: center;
+  align-items: center;
+  padding: 5px 10px;
+  font-size: 20px;
+  margin: 5px;
+  border: 1px solid black;
+  /* Autres styles selon vos besoins */
+}
+
+.evaluation-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 50px;
+  background-color: #f7f7f7;
+  border-radius: 20px;
+  width: 120vh;
+  height: 80vh;
+  margin: 0 auto;
+}
+
+.evaluation-container h2 {
+  margin-top: 10vh;
+  font-size: 30px;
+  margin-bottom: 30px;
+  background-color: #f7f7f7;
+  color: black;
+}
+
+.evaluation-button {
+  background-color: #a8d5e2;
+  border: none;
+  border-radius: 25px;
+  color: white;
+  padding: 10px 30px;
+  margin: 10px 0;
+  cursor: pointer;
+  font-size: 18px;
+  transition: 0.3s;
+  width: 60vh;
+}
+
+.evaluation-button:hover {
+  background-color: #8bc4d0;
+}
+
+.evaluation-container h1 {
+  margin-top: 30vh;
+  font-size: 45px; /* Adjust this to your preferred size */
+  color: #333;
+  margin-bottom: 30px;
+  text-align: center; /* Centering the text */
+}
+
+.evaluation-container p {
+  font-size: 35px; /* Adjust this to your preferred size */
+  color: #555;
+  text-align: center; /* Centering the text */
+  margin-bottom: 10px; /* Adjust this for spacing between the <p> tags */
+}
+
+/* If you specifically want to target the last <p> tag and change its size: */
+.evaluation-container p:last-child {
+  font-size: 35px; /* Adjust this to your preferred size */
+  font-weight: bold; /* Making the font bold */
+}
+
+.evaluation-container1 h1 {
+  margin-top: 30vh;
+  font-size: 45px; /* Adjust this to your preferred size */
+  color: #333;
+  margin-bottom: 30px;
+  text-align: center; /* Centering the text */
+}
+
+.evaluation-container1 p {
+  font-size: 35px; /* Adjust this to your preferred size */
+  color: #555;
+  text-align: center; /* Centering the text */
+  margin-bottom: 10px; /* Adjust this for spacing between the <p> tags */
+}
+
+/* If you specifically want to target the last <p> tag and change its size: */
+.evaluation-container1 p:last-child {
+  font-size: 35px; /* Adjust this to your preferred size */
+  font-weight: bold; /* Making the font bold */
+}
+
+.review-container {
+  font-size: 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 50px;
+  background-color: #f7f7f7;
+  border-radius: 20px;
+  width: 120vh;
+  height: 80vh;
+  margin: 0 auto;
+}
+
+.peer-review-container {
+  margin-top: 15vh;
+}
+
+.peer-review-container > *:not(:last-child) {
+  /* Targets every child except the last one */
+  margin-bottom: 12vh; /* Adds space below each child */
+}
+
+.rating-section {
+  align-items: center;
+  justify-content: center;
+}
+
+.rating-section p,
+.rating-section div {
+  align-items: center;
+  justify-content: center;
+}
+
+.scroll {
+  height: 430px; /* ou tout autre valeur selon votre conception */
+  overflow-y: auto;
+  width: 100%;
+}

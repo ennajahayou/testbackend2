@@ -23,21 +23,29 @@ import ReactDOM from "react-dom/client";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Homepage from "./pages/Homepage";
 import DIOhomepage from "./pages/DIOhomepage/DIOhomepage";
-import CEOProfil from "./pages/CEOProfil";
-import ExecutionBoard from "./pages/Executionboard";
-import ExecutionAttribution from "./pages/ExecutionAttribution/ExecutionAttribution";
+import CEOProfil from "./pages/CEOProfil/CEOProfil";
+import ExecutionBoard from "./pages/ExecutionBoard/ExecutionBoard";
+import Archives from "./pages/Archives";
+import LoginPage from "./pages/login";
+import SignupPage from "./pages/signup";
+
+import { TasksProvider } from "./pages/TasksContext";
 
 export default function App() {
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route index element={<Homepage />} />
-        <Route path="DIO" element={<DIOhomepage />} />
-        <Route path="CEOProfil" element={<CEOProfil />} />
-        <Route path="ExecutionBoard" element={<ExecutionBoard />} />
-        <Route path="ExecutionAttribution" element={<ExecutionAttribution />} />
-      </Routes>
-    </BrowserRouter>
+    <TasksProvider>
+      <BrowserRouter>
+        <Routes>
+          <Route index element={<Homepage />} />
+          <Route path="DIO" element={<DIOhomepage />} />
+          <Route path="CEOProfil" element={<CEOProfil />} />
+          <Route path="ExecutionBoard" element={<ExecutionBoard />} />
+          <Route path="Archives" element={<Archives />} />
+          <Route path="login" element={<LoginPage />} />
+          <Route path="signup" element={<SignupPage />} />
+        </Routes>
+      </BrowserRouter>
+    </TasksProvider>
   );
 }
 

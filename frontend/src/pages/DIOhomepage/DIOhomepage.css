@@ -4,8 +4,9 @@
   align-items: center;
   /* pour centrer verticalement */
   /* pour centrer horizontalement */
-  width: 100%; /* ajustez selon vos besoins */
-  height: auto; /* ajustez selon vos besoins */
+  width: 100%;
+  /* ajustez selon vos besoins */
+  /* ajustez selon vos besoins */
 }
 
 .messages {
@@ -14,19 +15,19 @@
   /* Espace entre les rectangles */
   /* Bordure autour des rectangles */
   border-radius: 5px; /* Coins arrondis */
-  width: 90%;
-  height: 480px;
+  width: 93%;
   margin: auto;
-  overflow-y: auto; /* pour centrer horizontalement */
+  /* pour centrer horizontalement */
 }
 
 .message.bubble {
-  background-color: rgb(0, 174, 255); /* couleur du fond d'écran */
+  background-color: #aad9db; /* couleur du fond d'écran */
   border-radius: 15px;
   margin: 20px; /* arrondit les coins */
   margin-bottom: 30px; /* espace entre les messages */
   padding: 30px; /* espace à l'intérieur des bulles de message */
-  color: white; /* couleur du texte pour une meilleure visibilité sur le fond bleu */
+  color: white;
+  /* couleur du texte pour une meilleure visibilité sur le fond bleu */
 }
 
 .message.button {
@@ -41,6 +42,15 @@
   ); /* couleur du texte pour une meilleure visibilité sur le fond bleu */
 }
 
+.message.button {
+  background-color: rgb(255, 255, 255); /* couleur du fond d'écran */
+  border-radius: 20px;
+  margin: 5px;
+  padding: 5px;
+  color: rgb(0, 0, 0);
+  position: relative;
+}
+
 .input-container {
   position: relative;
 
@@ -49,8 +59,8 @@
   /* Espace entre les rectangles */
   /* Bordure autour des rectangles */
   /* Coins arrondis */
-  width: 90%;
-  height: 50px;
+  width: 93%;
+  height: auto;
   margin: auto;
   /* pour centrer horizontalement */
 }
@@ -59,7 +69,7 @@
   display: flex;
   flex-direction: row;
   align-items: center;
-  background-color: rgba(9, 61, 48, 0.852);
+  background-color: #aad9db;
   padding: 20px; /* Espace à l'intérieur des rectangles */
   /* Espace entre les rectangles */
   /* Bordure autour des rectangles */
@@ -74,15 +84,14 @@
 .message-input {
   flex-grow: 2; /* Cela permettra aux deux éléments de prendre autant d’espace que possible */
   padding: 15px; /* Ajoute du remplissage pour augmenter la taille des éléments */
-  background-color: rgba(
-    9,
-    61,
-    48,
-    0.852
-  ); /* Ajustez la couleur de fond selon vos besoins */
+  background-color: #aad9db; /* Ajustez la couleur de fond selon vos besoins */
   color: white; /* Ajustez la couleur du texte selon vos besoins */
   border: none;
   font-size: large; /* Supprime la bordure, ajustez selon vos besoins */
+}
+
+::placeholder {
+  color: rgb(210, 210, 210);
 }
 
 .send-button {
@@ -133,4 +142,65 @@
   margin: 4px 2px;
   cursor: pointer;
   border-radius: 10px;
+}
+
+.scroll {
+  margin-top: 50px;
+  height: 430px; /* ou tout autre valeur selon votre conception */
+  overflow-y: auto;
+  width: 100%;
+}
+
+.scroll::-webkit-scrollbar {
+  width: 1px; /* Largeur de la barre de défilement */
+}
+
+.scroll::-webkit-scrollbar-track {
+  background-color: #f5f5f5; /* Couleur de fond de la barre */
+}
+
+.scroll::-webkit-scrollbar-thumb {
+  background-color: #a9a9a9; /* Couleur du curseur de défilement */
+  border-radius: 4px; /* Arrondir les bords du curseur */
+}
+
+.scroll::-webkit-scrollbar-thumb:hover {
+  background-color: #696969; /* Couleur du curseur lors du survol */
+}
+
+.h1 {
+  text-align: center;
+  color: white;
+  font-size: xx-large;
+  justify-content: center;
+  margin: 100px;
+}
+
+.logo-bar {
+  position: relative;
+  width: 100%;
+  height: 100px; /* exemple de hauteur, ajustez selon vos besoins */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+h1,
+.thanks {
+  margin: 5px;
+}
+
+.thanks {
+  display: flex;
+  align-items: center; /* s'assure que le texte et l'image sont alignés verticalement */
+  font-size: 40px; /* taille du texte "0" */
+  position: absolute;
+  top: 40px;
+  right: 60px;
+}
+
+.symbole {
+  width: 40px; /* largeur de l'image */
+  height: 40px; /* hauteur de l'image */
+  margin-left: 5px; /* espace entre le texte "0" et l'image */
 }
