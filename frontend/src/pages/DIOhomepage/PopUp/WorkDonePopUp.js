@@ -1,20 +1,16 @@
 import "../DIOhomepage.css";
-import { useContext } from "react";
-import { TasksContext } from "../../TasksContext";
-
-import axios from "axios";
+// import { useContext } from "react";
+// import { TasksContext } from "../../TasksContext";
 
 const WorkDonePopUp = ({
-  executionDescription,
-  dioId,
   setShowPopUpWorkDone,
   setIsCreatingExecution,
+  setSelfReview,
+  setExecutionId,
 }) => {
   // TODO: add real information in jsonData
 
-  const { addProposition } = useContext(TasksContext);
-
-  const { setProp, addProp } = useContext(TasksContext);
+  // const { setProp, addProp } = useContext(TasksContext);
 
   const handleClickNotDone = () => {
     setIsCreatingExecution(true);
@@ -22,17 +18,10 @@ const WorkDonePopUp = ({
   };
 
   const handleClickAlreadyDone = () => {
+    console.log("already done");
     setShowPopUpWorkDone(false);
-    alert("Your work has been submitted");
-
-    axios.post(process.env.REACT_APP_BACKEND_URL + "/execution/workDone", {
-      userId: localStorage.getItem("userId"),
-      executionDescription: executionDescription,
-      dioId: dioId,
-      execContent: "Work already done",
-    });
-
-    addProposition(executionDescription);
+    setExecutionId(0);
+    setSelfReview(true);
   };
 
   return (
@@ -40,11 +29,7 @@ const WorkDonePopUp = ({
       <button className="submitButton" onClick={handleClickNotDone}>
         Not done
       </button>
-      <button
-        className="submitButton"
-        onClick={handleClickAlreadyDone}
-        disabled
-      >
+      <button className="submitButton" onClick={handleClickAlreadyDone}>
         Already done
       </button>
     </div>

@@ -8,42 +8,6 @@ import { TasksContext } from "../TasksContext";
 import logo5 from "../../images/logo5.png";
 import "./CEOProfil.css";
 
-// const tasksInProgress = [
-//   {
-//     id: 1,
-//     exec_description: "Execution 1",
-//     talent_name: "Paul Lacroix",
-//     status_: "Not assigned",
-//     status: null,
-//   },
-//   {
-//     id: 2,
-//     exec_description: "Execution 2",
-//     talent_name: "Mohamed El Kout",
-//     deadline: "20/10/23",
-//     status_: "In progress",
-//     status: null,
-//   },
-//   {
-//     id: 3,
-//     exec_description: "Execution 3",
-//     talent_name: "Ousmane Diene",
-//     status_: "In review",
-//     status: null,
-//   },
-// ];
-
-// const finishedTasks = [
-//   {
-//     text: "La description de la tâche",
-//     status: "accepté", // ou 'refusé'
-//   },
-//   {
-//     text: "La description de la tâche",
-//     status: "refusé", // ou 'refusé'
-//   },
-// ];
-
 const CEOProfil = () => {
   const { addTask, addDIOTask } = useContext(TasksContext);
 
@@ -76,6 +40,10 @@ const CEOProfil = () => {
       });
   }, []);
 
+  const removeTask = (id) => {
+    setTasksInProgress(tasksInProgress.filter((task) => task.id !== id));
+  };
+
   const handleAccept = (task) => {
     addTask({
       text: task.exec_description,
@@ -84,12 +52,13 @@ const CEOProfil = () => {
     });
     addDIOTask(task);
 
-    axios.post(
-      process.env.REACT_APP_BACKEND_URL + "/ceoprofil/acceptExecution",
-      {
+    axios
+      .post(process.env.REACT_APP_BACKEND_URL + "/ceoprofil/acceptExecution", {
         executionId: task.id,
-      }
-    );
+      })
+      .then((res) => {
+        removeTask(task.id);
+      });
   };
 
   const handleRefuse = (task) => {
@@ -99,12 +68,13 @@ const CEOProfil = () => {
       date: new Date().toLocaleDateString(),
     });
 
-    axios.post(
-      process.env.REACT_APP_BACKEND_URL + "/ceoprofil/refuseExecution",
-      {
+    axios
+      .post(process.env.REACT_APP_BACKEND_URL + "/ceoprofil/refuseExecution", {
         executionId: task.id,
-      }
-    );
+      })
+      .then((res) => {
+        removeTask(task.id);
+      });
   };
 
   return (

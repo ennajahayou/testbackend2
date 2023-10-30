@@ -7,7 +7,8 @@ CREATE TABLE users (
     password_ VARCHAR(255) NOT NULL,
     profil_informations TEXT,
     wallet_tip1 DECIMAL(10, 2) DEFAULT 0,
-    wallet_tip2 DECIMAL(10, 2) DEFAULT 0
+    wallet_tip2 DECIMAL(10, 2) DEFAULT 0,
+    thanks INT DEFAULT 0,
 );
 
 -- Table des DIO (Decentralized Intellectual Organizations)

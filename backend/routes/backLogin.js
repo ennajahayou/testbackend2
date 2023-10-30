@@ -26,7 +26,7 @@ router.post("/api/login", (req, res) => {
           message: "Authentification réussie",
           userId: row[0].id,
           userName: row[0].user_name,
-          isCEO,
+          // isCEO,
         });
       } else {
         res

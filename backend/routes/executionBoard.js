@@ -3,6 +3,39 @@ var router = express.Router();
 const createConnection = require("../dataBaseConnection");
 const thanksCalculator = require("./thanksCalculator");
 
+/* Determine if an execution has a review, a peer review and a CEO review. */
+const has3review = (id_execution) => {
+  const connection = createConnection();
+  let sql = `SELECT COUNT(*) AS nb_review FROM review WHERE id_execution = ?`;
+  let sql2 = `SELECT COUNT(*) AS nb_peer_review FROM peer_review WHERE id_execution = ?`;
+  let sql3 = `SELECT COUNT(*) AS nb_ceo_review FROM ceo_review WHERE id_execution = ?`;
+
+  const res = new Promise((resolve, reject) => {
+    connection.query(sql, [id_execution], (err, rows) => {
+      if (err) {
+        reject(err);
+      }
+      connection.query(sql2, [id_execution], (err, rows2) => {
+        if (err) {
+          reject(err);
+        }
+        connection.query(sql3, [id_execution], (err, rows3) => {
+          if (err) {
+            reject(err);
+          }
+          resolve([
+            rows[0].nb_review > 0,
+            rows2[0].nb_peer_review > 0,
+            rows3[0].nb_ceo_review > 0,
+          ]);
+        });
+      });
+    });
+  });
+
+  return res;
+};
+
 router.post("/save-texte", (req, res) => {
   const { executionId, texte } = req.body;
   const db = createConnection();
@@ -33,7 +66,23 @@ router.post("/save-texte", (req, res) => {
 });
 
 router.post("/setDone", async (req, res) => {
-  const { executionId } = req.body;
+  const { executionId, userId } = req.body;
+
+  const isReviewed = await has3review(executionId);
+  if (!isReviewed[0] || !isReviewed[1] || !isReviewed[2]) {
+    let errorString = "There is no ";
+    if (!isReviewed[0]) {
+      errorString += "self review, ";
+    }
+    if (!isReviewed[1]) {
+      errorString += "peer review, ";
+    }
+    if (!isReviewed[2]) {
+      errorString += "CEO review, ";
+    }
+    res.status(200).send(errorString + "for this execution");
+    return;
+  }
 
   const scoreThanks = await thanksCalculator(executionId, 0);
   const db = createConnection();
@@ -49,7 +98,7 @@ router.post("/setDone", async (req, res) => {
       if (updateErr) {
         res.status(500).send("Erreur lors de la mise à jour de status_");
       } else {
-        res.status(200).send("status_ mis à jour avec succès");
+        res.status(200).send({ scoreThanks: scoreThanks });
       }
       db.close();
     }

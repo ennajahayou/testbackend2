@@ -10,6 +10,7 @@ import ExecutionAttribution from "./ExecutionAttribution";
 import WorkDonePopUp from "./PopUp/WorkDonePopUp";
 import AttributionPopUp from "./PopUp/AttributionPopUp";
 import ExecutionCreation from "./ExecutionCreation";
+import SelfReview from "./SelfReview";
 
 import "./DIOhomepage.css";
 
@@ -32,6 +33,10 @@ const DIOhomepage = () => {
   const [executionId, setExecutionId] = useState(0);
   const [isAttributingExecution, setIsAttributingExecution] = useState(false);
   const [isCreatingExecution, setIsCreatingExecution] = useState(false);
+  const [
+    creationExecutionWorkAlreadyDone,
+    setCreationExecutionWorkAlreadyDone,
+  ] = useState(false);
 
   const feed = dioTasks.map((execution) => {
     switch (execution.status_) {
@@ -80,6 +85,12 @@ const DIOhomepage = () => {
           executionDescription={createExecutionText}
           setIsCreatingExecution={setIsCreatingExecution}
         />
+      ) : creationExecutionWorkAlreadyDone ? (
+        <SelfReview
+          executionDescription={createExecutionText}
+          setShowEvaluation={setCreationExecutionWorkAlreadyDone}
+          executionId={executionId}
+        />
       ) : (
         <div className="main-content">
           <div className="logo-bar">
@@ -112,17 +123,17 @@ const DIOhomepage = () => {
           )}
           {showPopUpWorkDone && (
             <WorkDonePopUp
-              executionDescription={createExecutionText}
-              dioId="1"
               setShowPopUpWorkDone={setShowPopUpWorkDone}
               setIsCreatingExecution={setIsCreatingExecution}
+              setSelfReview={setCreationExecutionWorkAlreadyDone}
+              setExecutionId={setExecutionId}
             />
           )}
           {showPopUpAttribution && (
             <AttributionPopUp
               setIsAttributingExecution={setIsAttributingExecution}
               setShowPopUpAttribution={setShowPopUpAttribution}
-              executionId={executionId}
+              setSelfReview={setCreationExecutionWorkAlreadyDone}
             />
           )}
         </div>

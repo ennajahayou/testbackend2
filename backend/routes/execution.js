@@ -9,7 +9,7 @@ router.post("/", function (req, res, next) {
 
   const executionDescription = req.body.executionDescription;
   const talentId = req.body.talentId;
-  const creatorId = req.body.creatorId;
+  const creatorId = Number(req.body.creatorId);
   const dioId = req.body.dioId;
   const doItMyself = req.body.doItMyself;
   const howMake = req.body.howMake;
@@ -34,6 +34,7 @@ router.post("/", function (req, res, next) {
       connection.close();
     } else {
       const ceoId = rows[0].id_ceo;
+      console.log({ ceoId, creatorId });
 
       let sqlAddExecution = "";
       if (req.body.deadline) {
@@ -87,7 +88,7 @@ router.post("/", function (req, res, next) {
 
 /* Add an execution with the work already done */
 router.post("/workDone", function (req, res, next) {
-  const { userId, executionDescription, dioId, execContent } = req.body;
+  const { userId, executionDescription, dioId, texte } = req.body;
   const connection = createConnection();
   const sqlGetCEO = `SELECT id_ceo FROM dio WHERE id = ?`;
 
@@ -98,7 +99,7 @@ router.post("/workDone", function (req, res, next) {
     if (!rows.length) {
       console.log("No dio found");
       res.status(400).send("No dio found");
-      // throw new Error("No dio found");
+
       connection.close();
     } else {
       const ceoId = rows[0].id_ceo;
@@ -113,7 +114,7 @@ router.post("/workDone", function (req, res, next) {
           dioId,
           "In review",
           ceoId == userId,
-          execContent,
+          texte,
         ],
         (err, rows) => {
           if (err) {

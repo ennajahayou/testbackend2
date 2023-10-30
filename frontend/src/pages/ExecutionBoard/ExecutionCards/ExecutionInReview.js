@@ -7,9 +7,19 @@ const ExecutionInReview = ({
   droppedTaskIndex,
 }) => {
   const setExecutionDone = () => {
-    axios.post(process.env.REACT_APP_BACKEND_URL + "/executionBoard/setDone", {
-      executionId: execution.id,
-    });
+    axios
+      .post(process.env.REACT_APP_BACKEND_URL + "/executionBoard/setDone", {
+        executionId: execution.id,
+      })
+      .then((res) => {
+        if (res.status === 200) {
+          if (res.data.scoreThanks > 0) {
+            alert("You earned " + res.data.scoreThanks + " thanks");
+          } else {
+            alert(res.data);
+          }
+        }
+      });
   };
 
   const formattedDeadline = new Date(execution.deadline).toLocaleDateString();

@@ -15,7 +15,6 @@ router.get("/executionInProgress", function (req, res, next) {
     if (err) {
       throw err;
     }
-    console.log({ rows });
     res.send(rows);
 
     connection.close();
@@ -28,10 +27,10 @@ router.get("/executionFinished", function (req, res, next) {
   dioId = req.query.dioId;
   const connection = createConnection();
   // TODO : add date management
-  let sql2 = `SELECT execution.id, execution.exec_description, users.user_name, execution.ceo_validated, execution.status_
+  /*   let sql2 = `SELECT execution.id, execution.exec_description, users.user_name, execution.ceo_validated, execution.status_
               FROM execution
               JOIN users ON execution.id_talent = users.id
-              WHERE execution.id_dio = ? AND execution.status_ = "Done"`;
+              WHERE execution.id_dio = ? AND execution.status_ = "Done"`; */
   let sql = `SELECT  id, exec_description, ceo_validated, status_
   FROM execution
 WHERE status_ = 'In review'
