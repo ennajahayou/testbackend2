@@ -25,6 +25,9 @@ const Sidebar = () => (
     <button className="sidebar-section">
       <Link to="/Archives">Archives</Link>
     </button>
+   <button className="sidebar-section">
+      <Link to="/UserDetails">User Details</Link>
+    </button>
     <div className="sidebar-section espace"></div>
     <button className="sidebar-section">Settings</button>
   </div>
