@@ -28,6 +28,8 @@ import ExecutionBoard from "./pages/ExecutionBoard/ExecutionBoard";
 import Archives from "./pages/Archives";
 import LoginPage from "./pages/login";
 import SignupPage from "./pages/signup";
+import UserDetails from "./pages/UserDetails/UserDetails";
+import Parameters from "./pages/Parameters/Parameters";
 
 import { TasksProvider } from "./pages/TasksContext";
 
@@ -43,6 +45,8 @@ export default function App() {
           <Route path="Archives" element={<Archives />} />
           <Route path="login" element={<LoginPage />} />
           <Route path="signup" element={<SignupPage />} />
+          <Route path="UserDetails" element={<UserDetails />} />
+          <Route path="Parameters" element={<Parameters />} />
         </Routes>
       </BrowserRouter>
     </TasksProvider>

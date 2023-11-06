@@ -7,8 +7,7 @@ CREATE TABLE users (
     password_ VARCHAR(255) NOT NULL,
     profil_informations TEXT,
     wallet_tip1 DECIMAL(10, 2) DEFAULT 0,
-    wallet_tip2 DECIMAL(10, 2) DEFAULT 0,
-    thanks INT DEFAULT 0,
+    wallet_tip2 DECIMAL(10, 2) DEFAULT 0
 );
 
 -- Table des DIO (Decentralized Intellectual Organizations)
@@ -45,7 +44,7 @@ CREATE TABLE projects_dio (
     FOREIGN KEY (id_contributors) REFERENCES users(id)
 )ENGINE=INNODB;
 
--- Table Execution
+-- Table Execution and champs to add
  CREATE TABLE execution (
     id INT AUTO_INCREMENT PRIMARY KEY,
     creation_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
@@ -60,7 +59,7 @@ CREATE TABLE projects_dio (
     score_thanks INT DEFAULT 0,
     status_ VARCHAR(25),
     ceo_validated BOOLEAN,
-    archived BOOLEAN DEFAULT FALSE,
+    --archived BOOLEAN DEFAULT FALSE,
     CONSTRAINT CK_Status CHECK (status_ IN ('Not assigned', 'In progress', 'In review', 'Done')),
     FOREIGN KEY (id_talent) REFERENCES users(id),
     FOREIGN KEY (id_ceo) REFERENCES users(id),
@@ -70,7 +69,7 @@ CREATE TABLE projects_dio (
 -- Table Review
 
 CREATE TABLE review (
-    id INT AUTO_INCREMENT PRIMARY KEY,
+    id_review INT AUTO_INCREMENT PRIMARY KEY,
     id_execution INT,
     id_issuer INT,
     comments_ TEXT,
@@ -80,22 +79,18 @@ CREATE TABLE review (
     FOREIGN KEY (id_execution) REFERENCES execution(id)
 );
 
-
+-- table to add 
 CREATE TABLE peer_review (
     id INT AUTO_INCREMENT PRIMARY KEY,
     id_execution INT,
     id_issuer INT,
     comments TEXT,
-    respect INT,
     expectations INT,
-    result INT,
-    quality INT,
-    goal INT,
-    satisfaction INT,
+    reactivity INT,
     FOREIGN KEY (id_issuer) REFERENCES users(id),
     FOREIGN KEY (id_execution) REFERENCES execution(id)
 );
-
+-- table to add
 CREATE TABLE ceo_review (
     id INT AUTO_INCREMENT PRIMARY KEY,
     id_execution INT,
@@ -122,3 +117,21 @@ CREATE TABLE thanks (
 
 ALTER TABLE execution
 ADD exec_content TEXT DEFAULT NULL;
+
+ ALTER TABLE users
+ADD thanks INT DEFAULT 0;
+
+ALTER TABLE dio 
+ADD id_ceo INT;
+
+ALTER TABLE dio
+ADD CONSTRAINT fk_ceo_id FOREIGN KEY (id_ceo) REFERENCES users(id);
+
+ALTER TABLE execution
+ADD creation_date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+ADD last_updated TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+ADD candidate_description TEXT,
+ADD deadline TIMESTAMP NOT NULL,
+ADD archived BOOLEAN NOT NULL DEFAULT FALSE;
+
+

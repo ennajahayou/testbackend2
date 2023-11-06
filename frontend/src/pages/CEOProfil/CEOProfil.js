@@ -25,7 +25,6 @@ const CEOProfil = () => {
           dioId
       )
       .then((res) => {
-        console.log(res.data);
         setTasksInProgress(res.data);
       });
     axios
@@ -35,7 +34,6 @@ const CEOProfil = () => {
           dioId
       )
       .then((res) => {
-        console.log(res.data);
         setFinishedTasks(res.data);
       });
   }, []);

@@ -22,7 +22,6 @@ const SubmitionPopUp = ({
       doItMyself: false,
     };
 
-    console.log({ jsonData });
     var request = new XMLHttpRequest();
     request.open(
       "POST",

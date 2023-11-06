@@ -5,6 +5,7 @@ var cookieParser = require("cookie-parser");
 var logger = require("morgan");
 const cors = require("cors");
 
+
 // Import routes
 var indexRouter = require("./routes/index");
 var dioRouter = require("./routes/dio");
@@ -14,6 +15,8 @@ var ceoProfilRouter = require("./routes/ceoprofil");
 var executionBoardRouter = require("./routes/executionBoard");
 var reviewRouter = require("./routes/review");
 var loginRouter = require("./routes/backLogin");
+var userdetailsRouter = require("./routes/usersdetails");
+var parmetersRouter = require("./routes/parameters");
 
 var app = express();
 
@@ -37,6 +40,8 @@ app.use("/ceoprofil", ceoProfilRouter);
 app.use("/executionBoard", executionBoardRouter);
 app.use("/review", reviewRouter);
 app.use("/login", loginRouter);
+app.use("/usersdetails", userdetailsRouter);
+app.use("/parameters", parmetersRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

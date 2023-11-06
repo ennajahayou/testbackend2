@@ -38,6 +38,8 @@ class LoginPage extends Component {
             localStorage.setItem("isCEO", data.isCEO);
           });
 
+          console.log(localStorage.getItem("isCEO"));
+
           window.location.href = "/";
         } else {
           // Afficher un message d'erreur

@@ -14,7 +14,7 @@ const Sidebar = () => (
     <button className="sidebar-section">Invite New Member</button>
     <div className="sidebar-section espace"></div>
     <button className="sidebar-section">
-      My profile : {localStorage.getItem("userName")}
+      <Link to="/login">My profile : {localStorage.getItem("userName")}</Link>
     </button>
   </div>
 );

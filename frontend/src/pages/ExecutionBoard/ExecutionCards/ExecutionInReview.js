@@ -10,6 +10,7 @@ const ExecutionInReview = ({
     axios
       .post(process.env.REACT_APP_BACKEND_URL + "/executionBoard/setDone", {
         executionId: execution.id,
+        userId: localStorage.getItem("userId"),
       })
       .then((res) => {
         if (res.status === 200) {

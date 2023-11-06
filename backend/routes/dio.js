@@ -9,9 +9,9 @@ router.get("/", function (req, res, next) {
 
   connection.query(sql, [], (err, rows) => {
     if (err) {
-      throw err;
+      console.log(err);
+      connection.close();
     }
-    // console.log({ rows });
     res.send(rows);
 
     connection.close();
@@ -25,9 +25,9 @@ router.post("/", function (req, res, next) {
 
   connection.query(sql, [], (err, rows) => {
     if (err) {
-      throw err;
+      console.log(err);
+      connection.close();
     }
-    console.log({ rows });
     res.send(rows);
 
     connection.close();
@@ -36,7 +36,6 @@ router.post("/", function (req, res, next) {
 
 /* GET dio list of execution of a DIO. */
 router.get("/execution", function (req, res, next) {
-  console.log(req.query);
   dioId = req.query.dioId;
 
   const connection = createConnection();
@@ -47,7 +46,8 @@ router.get("/execution", function (req, res, next) {
                 ORDER BY execution.last_updated DESC`;
   connection.query(sql, [dioId], (err, rows) => {
     if (err) {
-      throw err;
+      console.log(err);
+      connection.close();
     }
     res.send(rows);
 
@@ -64,9 +64,9 @@ router.post("/addUser", function (req, res, next) {
 
   connection.query(sql, [userId, dioId], (err, rows) => {
     if (err) {
-      throw err;
+      console.log(err);
+      connection.close();
     }
-    console.log({ rows });
     res.send(rows);
 
     connection.close();

@@ -6,7 +6,6 @@ const ExecutionDone = ({ execution }) => {
       </div>
       <div>Execution Done</div>
       <div>Thanks : {execution.score_thanks}</div>
-      <div>(Ajouter le score (thanks, tips...))</div>
     </div>
   );
 };

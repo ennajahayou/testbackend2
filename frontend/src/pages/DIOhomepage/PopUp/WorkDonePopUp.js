@@ -18,7 +18,6 @@ const WorkDonePopUp = ({
   };
 
   const handleClickAlreadyDone = () => {
-    console.log("already done");
     setShowPopUpWorkDone(false);
     setExecutionId(0);
     setSelfReview(true);

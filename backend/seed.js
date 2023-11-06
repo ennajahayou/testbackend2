@@ -65,7 +65,6 @@ users.forEach((user) => {
     `INSERT INTO users (user_name, email, password_) VALUES ('${user.name}', '${user.mail}', '${user.password_}')`,
     (err, rows) => {
       if (err) throw err;
-      console.log(rows);
     }
   );
 });
@@ -74,7 +73,6 @@ connection.query(
   `INSERT INTO dio (nom_dio, dio_description, id_ceo) VALUES ('${dioCDL.nom_dio}', '${dioCDL.dio_description}', ${dioCDL.id_ceo})`,
   (err, rows) => {
     if (err) throw err;
-    console.log(rows);
   }
 );
 

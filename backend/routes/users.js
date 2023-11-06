@@ -9,7 +9,8 @@ router.get("/", function (req, res, next) {
 
   connection.query(sql, [], (err, rows) => {
     if (err) {
-      throw err;
+      console.log(err);
+      connection.close();
     }
     res.send(rows);
 
@@ -25,7 +26,8 @@ router.get("/:id", function (req, res, next) {
 
   connection.query(sql, [id], (err, rows) => {
     if (err) {
-      throw err;
+      console.log(err);
+      connection.close();
     }
     res.send(rows);
 

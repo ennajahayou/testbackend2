@@ -9,9 +9,8 @@ router.get("/", function (req, res, next) {
 
   connection.query(sql, [dioId], (err, rows) => {
     if (err) {
-      throw err;
+      res.send(err);
     }
-    console.log({ rows });
     res.send(rows);
 
     connection.close();

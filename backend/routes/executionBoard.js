@@ -55,7 +55,6 @@ router.post("/save-texte", (req, res) => {
         );
         res.status(500).send("Erreur lors de la mise à jour de exec_content");
       } else {
-        console.log("exec_content mis à jour avec succès :", updateResult);
         res
           .status(200)
           .send("Texte inséré et exec_content mis à jour avec succès");
@@ -67,6 +66,8 @@ router.post("/save-texte", (req, res) => {
 
 router.post("/setDone", async (req, res) => {
   const { executionId, userId } = req.body;
+
+  console.log(userId);
 
   const isReviewed = await has3review(executionId);
   if (!isReviewed[0] || !isReviewed[1] || !isReviewed[2]) {
@@ -88,7 +89,7 @@ router.post("/setDone", async (req, res) => {
   const db = createConnection();
 
   const updateSql =
-    "UPDATE execution SET status_ = ?, score_thanks = ? WHERE id = ?";
+    "UPDATE execution SET status_ = ?, score_thanks = ? WHERE id = ?; ";
   const updateValue = "Done";
 
   db.query(
@@ -97,10 +98,24 @@ router.post("/setDone", async (req, res) => {
     (updateErr, updateResult) => {
       if (updateErr) {
         res.status(500).send("Erreur lors de la mise à jour de status_");
+        db.close();
       } else {
-        res.status(200).send({ scoreThanks: scoreThanks });
+        const updateUserSql =
+          "UPDATE users SET thanks = thanks + ? WHERE id = ?";
+        db.query(
+          updateUserSql,
+          [scoreThanks, userId],
+          (updateUserErr, updateUserResult) => {
+            if (updateUserErr) {
+              console.error("Erreur lors de la mise à jour de thanks :");
+              db.close();
+            } else {
+              res.status(200).send({ scoreThanks: scoreThanks });
+              db.close();
+            }
+          }
+        );
       }
-      db.close();
     }
   );
 });

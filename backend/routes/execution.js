@@ -4,9 +4,6 @@ const createConnection = require("../dataBaseConnection");
 
 /* Handle execution Creation */
 router.post("/", function (req, res, next) {
-  console.log("Execution creation request received");
-  console.log(req.body);
-
   const executionDescription = req.body.executionDescription;
   const talentId = req.body.talentId;
   const creatorId = Number(req.body.creatorId);
@@ -25,16 +22,15 @@ router.post("/", function (req, res, next) {
 
   connection.query(sqlGetCEO, [dioId], (err, rows) => {
     if (err) {
-      throw err;
+      console.log(err);
+      connection.close();
     }
     if (!rows.length) {
-      console.log("No dio found");
       res.status(400).send("No dio found");
-      // throw new Error("No dio found");
+
       connection.close();
     } else {
       const ceoId = rows[0].id_ceo;
-      console.log({ ceoId, creatorId });
 
       let sqlAddExecution = "";
       if (req.body.deadline) {
@@ -51,37 +47,13 @@ router.post("/", function (req, res, next) {
 
       connection.query(sqlAddExecution, [], (err) => {
         if (err) {
-          throw err;
+          console.log(err);
+          connection.close();
         }
-        console.log("Execution created");
         res.status(200).send("Execution created");
 
         connection.close();
       });
-
-      // if (ceoId === creatorId) {
-      //   const sqlAddExecution = `INSERT INTO execution (exec_description, id_talent, id_ceo, id_dio, status_, ceo_validated) VALUES ('${executionDescription}', ${talentId}, ${creatorId}, ${dioId}, '${status}', true)`;
-      //   connection.query(sqlAddExecution, [], (err) => {
-      //     if (err) {
-      //       throw err;
-      //     }
-      //     console.log("Execution created");
-      //     res.status(200).send("Execution created");
-
-      //     connection.close();
-      //   });
-      // } else {
-      //   const sqlAddExecution = `INSERT INTO execution (exec_description, id_talent, id_ceo, id_dio, status_, ceo_validated) VALUES ('${executionDescription}', ${talentId}, ${creatorId}, ${dioId}, '${status}', false)`;
-      //   connection.query(sqlAddExecution, [], (err) => {
-      //     if (err) {
-      //       throw err;
-      //     }
-      //     console.log("Execution created");
-      //     res.status(200).send("Execution created");
-
-      //     connection.close();
-      //   });
-      // }
     }
   });
 });
@@ -94,10 +66,10 @@ router.post("/workDone", function (req, res, next) {
 
   connection.query(sqlGetCEO, [dioId], (err, rows) => {
     if (err) {
-      throw err;
+      console.log(err);
+      connection.close();
     }
     if (!rows.length) {
-      console.log("No dio found");
       res.status(400).send("No dio found");
 
       connection.close();
@@ -119,9 +91,9 @@ router.post("/workDone", function (req, res, next) {
         (err, rows) => {
           if (err) {
             res;
-            throw err;
+            console.log(err);
+            connection.close();
           }
-          console.log({ rows });
           res.send(rows);
 
           connection.close();
@@ -133,9 +105,6 @@ router.post("/workDone", function (req, res, next) {
 
 /* Asign a user to an execution */
 router.post("/assign", function (req, res, next) {
-  console.log("Execution assignation request received");
-  console.log(req.body);
-
   const executionId = req.body.executionId;
   const userId = req.body.userId;
   const howMake = req.body.howMake;
@@ -149,9 +118,9 @@ router.post("/assign", function (req, res, next) {
     [userId, howMake, deliverDate, "In progress", executionId],
     (err, rows) => {
       if (err) {
-        throw err;
+        console.log(err);
+        connection.close();
       }
-      console.log("Execution assigned");
       res.status(200).send("Execution assigned");
       connection.close();
     }

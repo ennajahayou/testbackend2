@@ -1,5 +1,5 @@
 .login-container {
-  background:#B7D6ED; /* Dégradé de couleurs */
+  background: #b7d6ed; /* Dégradé de couleurs */
   border-radius: 15px;
   padding: 20px;
   text-align: center;
@@ -69,4 +69,42 @@ button:hover {
 
 .link:hover {
   text-decoration: underline;
+}
+
+.user-details {
+  font-family: Arial, sans-serif;
+  width: ;
+  /* max-width: 600px; */
+  margin: 0 auto;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+  float: none;
+  overflow: scroll;
+  overflow-x: hidden;
+  flex-grow: 100;
+}
+
+.user-details h2 {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.user-details ol {
+  list-style: none;
+  padding: 0;
+}
+
+.user-details li {
+  margin-bottom: 10px;
+  padding: 10px;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+
+.user-details li:hover {
+  background-color: #f0f0f0;
+  transition: background-color 0.3s;
 }

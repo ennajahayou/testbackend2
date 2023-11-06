@@ -4,7 +4,6 @@ const createConnection = require("../dataBaseConnection");
 
 /* GET execution in progress of a DIO. */
 router.get("/executionInProgress", function (req, res, next) {
-  console.log(req.query);
   dioId = req.query.dioId;
   const connection = createConnection();
   let sql = `SELECT execution.id, execution.exec_description, users.user_name, execution.ceo_validated, execution.status_
@@ -13,7 +12,8 @@ router.get("/executionInProgress", function (req, res, next) {
               WHERE execution.id_dio = ? AND execution.status_ != "Done" AND execution.ceo_validated = 0 AND execution.archived = 0`;
   connection.query(sql, [dioId], (err, rows) => {
     if (err) {
-      throw err;
+      console.log(err);
+      connection.close();
     }
     res.send(rows);
 
@@ -23,7 +23,6 @@ router.get("/executionInProgress", function (req, res, next) {
 
 /* GET execution done of a DIO. */
 router.get("/executionFinished", function (req, res, next) {
-  console.log(req.query);
   dioId = req.query.dioId;
   const connection = createConnection();
   // TODO : add date management
@@ -32,19 +31,17 @@ router.get("/executionFinished", function (req, res, next) {
               JOIN users ON execution.id_talent = users.id
               WHERE execution.id_dio = ? AND execution.status_ = "Done"`; */
   let sql = `SELECT  id, exec_description, ceo_validated, status_
-  FROM execution
-WHERE status_ = 'In review'
-AND id_dio = ?
-AND id NOT IN (
-  SELECT id_execution
-  FROM ceo_review
-)`;
+              FROM execution
+              WHERE status_ = 'In review' AND id_dio = ? AND id NOT IN (
+                SELECT id_execution
+                FROM ceo_review)`;
 
   connection.query(sql, [dioId], (err, rows) => {
     if (err) {
-      throw err;
+      console.log(err);
+      connection.close();
     }
-    console.log({ rows });
+
     res.send(rows);
 
     connection.close();
@@ -59,9 +56,9 @@ router.post("/acceptExecution", function (req, res, next) {
 
   connection.query(sql, [executionId], (err, rows) => {
     if (err) {
-      throw err;
+      console.log(err);
+      connection.close();
     }
-    console.log({ rows });
     res.send(rows);
 
     connection.close();
@@ -76,9 +73,9 @@ router.post("/refuseExecution", function (req, res, next) {
 
   connection.query(sql, [executionId], (err, rows) => {
     if (err) {
-      throw err;
+      console.log(err);
+      connection.close();
     }
-    console.log({ rows });
     res.send(rows);
 
     connection.close();
@@ -92,7 +89,8 @@ router.get("/notifications", function (req, res, next) {
 
   connection.query(sql, [], (err, rows) => {
     if (err) {
-      throw err;
+      console.log(err);
+      connection.close();
     }
     res.send(rows);
 
