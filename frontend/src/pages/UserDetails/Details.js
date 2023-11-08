@@ -18,7 +18,6 @@ const Details = ({ user, setShowDetails }) => {
         // }
       )
       .then((response) => {
-        console.log(response.data);
         setUserDetails(response.data);
       })
       .catch((error) => {

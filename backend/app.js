@@ -4,12 +4,13 @@ var path = require("path");
 var cookieParser = require("cookie-parser");
 var logger = require("morgan");
 const cors = require("cors");
-
+const comppression = require("compression");
+const helmet = require("helmet");
 
 // Import routes
 var indexRouter = require("./routes/index");
 var dioRouter = require("./routes/dio");
-var usersRouter = require("./routes/users");
+// var usersRouter = require("./routes/users");
 var executionRouter = require("./routes/execution");
 var ceoProfilRouter = require("./routes/ceoprofil");
 var executionBoardRouter = require("./routes/executionBoard");
@@ -28,12 +29,20 @@ app.use(logger("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
+app.use(comppression());
 app.use(express.static(path.join(__dirname, "public")));
+app.use(
+  helmet.contentSecurityPolicy({
+    directives: {
+      "script-src": ["'self'", "code.jquery.com", "cdn.jsdelivr.net"],
+    },
+  })
+);
 
 app.use(cors());
 
 app.use("/", indexRouter);
-app.use("/users", usersRouter);
+// app.use("/users", usersRouter);
 app.use("/dio", dioRouter);
 app.use("/execution", executionRouter);
 app.use("/ceoprofil", ceoProfilRouter);

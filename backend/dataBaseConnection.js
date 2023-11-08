@@ -3,10 +3,11 @@ const env = require("dotenv").config();
 
 const connectToDatabase = () => {
   const connectionInfo = {
-    host: process.env.DB_HOST,
-    user: process.env.DB_USER,
-    password: process.env.DB_PASSWORD,
-    database: process.env.DB_NAME,
+    host: "thankstip-database.censrelaamzf.eu-west-3.rds.amazonaws.com", //process.env.DB_HOST,
+    user: "admin", //process.env.DB_USER,
+    password: "Thanksandtip2023!",
+    database: "thankstip",
+    port: 3306,
   };
 
   return (connection = mysql.createConnection(connectionInfo));

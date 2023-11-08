@@ -1,9 +1,11 @@
 const createConnection = require("./dataBaseConnection");
+const bcrypt = require("bcrypt");
+const saltRounds = 10;
 
 userMourad = {
   name: "Mourad",
   mail: "a",
-  password_: "12345678",
+  password_: "Thanksandtip2023!",
 };
 
 userPaul = {
@@ -50,30 +52,52 @@ dioCDL = {
 
 const users = [
   userMourad,
-  userPaul,
-  userOusmane,
-  userMohamed,
-  userHassan,
-  userMarine,
-  userHelene,
+  // userPaul,
+  // userOusmane,
+  // userMohamed,
+  // userHassan,
+  // userMarine,
+  // userHelene,
 ];
 
 const connection = createConnection();
 
-users.forEach((user) => {
+// users.forEach((user) => {
+//   bcrypt.hash("Thanksandtip2023!", saltRounds, function (err, hash) {
+//     connection.query(
+//       `INSERT INTO users (user_name, email, password_) VALUES ('${user.name}', '${user.mail}', '${hash}')`,
+//       (err, rows) => {
+//         if (err) throw err;
+//       }
+//     );
+//   });
+// });
+
+console.log("here");
+bcrypt.hash(userMourad.password_, saltRounds, function (err, hash) {
   connection.query(
-    `INSERT INTO users (user_name, email, password_) VALUES ('${user.name}', '${user.mail}', '${user.password_}')`,
+    `INSERT INTO users (user_name, email, password_) VALUES (?, ?, ?)`,
+    [userMourad.name, userMourad.mail, hash],
     (err, rows) => {
       if (err) throw err;
+      connection.close();
     }
   );
 });
 
-connection.query(
-  `INSERT INTO dio (nom_dio, dio_description, id_ceo) VALUES ('${dioCDL.nom_dio}', '${dioCDL.dio_description}', ${dioCDL.id_ceo})`,
-  (err, rows) => {
-    if (err) throw err;
-  }
-);
+console.log(userMourad);
 
-connection.end();
+//   connection.query(
+//     `INSERT INTO users (user_name, email, password_) VALUES ('${user.name}', '${user.mail}', '${user.password_}')`,
+//     (err, rows) => {
+//       if (err) throw err;
+//     }
+//   );
+// });
+
+// connection.query(
+//   `INSERT INTO dio (nom_dio, dio_description, id_ceo) VALUES ('${dioCDL.nom_dio}', '${dioCDL.dio_description}', ${dioCDL.id_ceo})`,
+//   (err, rows) => {
+//     if (err) throw err;
+//   }
+// );

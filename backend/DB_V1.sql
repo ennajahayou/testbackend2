@@ -7,7 +7,8 @@ CREATE TABLE users (
     password_ VARCHAR(255) NOT NULL,
     profil_informations TEXT,
     wallet_tip1 DECIMAL(10, 2) DEFAULT 0,
-    wallet_tip2 DECIMAL(10, 2) DEFAULT 0
+    wallet_tip2 DECIMAL(10, 2) DEFAULT 0,
+    thanks INT DEFAULT 0
 );
 
 -- Table des DIO (Decentralized Intellectual Organizations)
@@ -20,7 +21,6 @@ CREATE TABLE dio (
     id_ceo INT,
     FOREIGN KEY (id_members) REFERENCES users(id),
     FOREIGN KEY (id_ceo) REFERENCES users(id)
-    
 )ENGINE=INNODB;
 
 -- Table de liaison entre users et DIO (pour enregistrer les membres)
@@ -51,6 +51,7 @@ CREATE TABLE projects_dio (
     last_updated TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     id_dio INT,
     exec_description VARCHAR(255),
+    exec_content TEXT DEFAULT NULL,
     id_talent INT,
     id_ceo INT,
     candidate_description TEXT,
@@ -59,7 +60,7 @@ CREATE TABLE projects_dio (
     score_thanks INT DEFAULT 0,
     status_ VARCHAR(25),
     ceo_validated BOOLEAN,
-    --archived BOOLEAN DEFAULT FALSE,
+    archived BOOLEAN DEFAULT FALSE,
     CONSTRAINT CK_Status CHECK (status_ IN ('Not assigned', 'In progress', 'In review', 'Done')),
     FOREIGN KEY (id_talent) REFERENCES users(id),
     FOREIGN KEY (id_ceo) REFERENCES users(id),
@@ -102,36 +103,5 @@ CREATE TABLE ceo_review (
     FOREIGN KEY (id_execution) REFERENCES execution(id)
 );
 
--- Table des Thanks
-CREATE TABLE thanks (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    -- id_issuer INT,
-    id_receiver INT,
-    id_execution INT,
-    date_creation TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    -- FOREIGN KEY (id_issuer) REFERENCES users(id),
-    FOREIGN KEY (id_receiver) REFERENCES users(id),
-    FOREIGN KEY (id_execution) REFERENCES execution(id)
-)ENGINE=INNODB;
-
-
-ALTER TABLE execution
-ADD exec_content TEXT DEFAULT NULL;
-
- ALTER TABLE users
-ADD thanks INT DEFAULT 0;
-
-ALTER TABLE dio 
-ADD id_ceo INT;
-
-ALTER TABLE dio
-ADD CONSTRAINT fk_ceo_id FOREIGN KEY (id_ceo) REFERENCES users(id);
-
-ALTER TABLE execution
-ADD creation_date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-ADD last_updated TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-ADD candidate_description TEXT,
-ADD deadline TIMESTAMP NOT NULL,
-ADD archived BOOLEAN NOT NULL DEFAULT FALSE;
 
 

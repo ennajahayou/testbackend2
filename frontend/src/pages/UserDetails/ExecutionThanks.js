@@ -32,7 +32,6 @@ const ExecutionThanks = ({ exec }) => {
     <li
       onClick={() => {
         setShowReview(!showReview);
-        console.log(executionReviews);
       }}
     >
       <b>{exec.exec_description}</b> - Thanks: {exec.score_thanks}
