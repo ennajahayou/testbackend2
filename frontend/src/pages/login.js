@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import "./login.css";
+import Sidebar from "../Components/Sidebar";
 
 class LoginPage extends Component {
   constructor(props) {
@@ -52,33 +53,36 @@ class LoginPage extends Component {
   };
   render() {
     return (
-      <div className="login-container">
-        <h2>Connexion</h2>
-        <form>
-          <div className="form-group">
-            <label>Email :</label>
-            <input
-              type="email"
-              value={this.state.email}
-              onChange={this.handlEmailChange}
-            />
-          </div>
-          <div className="form-group">
-            <label>Mot de passe :</label>
-            <input
-              type="password"
-              value={this.state.password}
-              onChange={this.handlePasswordChange}
-            />
-          </div>
-          <button type="button" onClick={this.handleLogin}>
-            Se connecter
-          </button>
-        </form>
-        <p>
-          Si vous n'avez pas encore de compte, veuillez{" "}
-          <a href="./signup">créer un compte</a>.
-        </p>
+      <div className="App">
+        <Sidebar />
+        <div className="login-container">
+          <h2>Connexion</h2>
+          <form>
+            <div className="form-group">
+              <label>Email :</label>
+              <input
+                type="email"
+                value={this.state.email}
+                onChange={this.handlEmailChange}
+              />
+            </div>
+            <div className="form-group">
+              <label>Mot de passe :</label>
+              <input
+                type="password"
+                value={this.state.password}
+                onChange={this.handlePasswordChange}
+              />
+            </div>
+            <button type="button" onClick={this.handleLogin}>
+              Se connecter
+            </button>
+          </form>
+          <p>
+            Si vous n'avez pas encore de compte, veuillez{" "}
+            <a href="./signup">créer un compte</a>.
+          </p>
+        </div>
       </div>
     );
   }

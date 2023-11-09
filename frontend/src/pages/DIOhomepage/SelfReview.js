@@ -143,7 +143,8 @@ const SelfReview = ({
           <p>23:59:47</p>
           <button
             className="evaluation-button"
-            onClick={() => setShowEvaluation(false)}
+            onClick={() => window.location.reload()}
+            // setShowEvaluation(false)}
           >
             Next
           </button>

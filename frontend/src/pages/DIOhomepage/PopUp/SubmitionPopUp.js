@@ -1,3 +1,4 @@
+import axios from "axios";
 import "../DIOhomepage.css";
 
 const SubmitionPopUp = ({
@@ -22,16 +23,24 @@ const SubmitionPopUp = ({
       doItMyself: false,
     };
 
-    var request = new XMLHttpRequest();
-    request.open(
-      "POST",
-      process.env.REACT_APP_BACKEND_URL + "/execution",
-      true
-    );
-    request.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
-    request.send(JSON.stringify(jsonData));
+    axios
+      .post(process.env.REACT_APP_BACKEND_URL + "/execution", jsonData)
+      .then((res) => {
+        if (res.status === 200) {
+          window.location.reload();
+        }
+      });
 
-    setShowPopUp(false);
+    // var request = new XMLHttpRequest();
+    // request.open(
+    //   "POST",
+    //   process.env.REACT_APP_BACKEND_URL + "/execution",
+    //   true
+    // );
+    // request.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+    // request.send(JSON.stringify(jsonData));
+
+    // setShowPopUp(false);
   };
 
   return (

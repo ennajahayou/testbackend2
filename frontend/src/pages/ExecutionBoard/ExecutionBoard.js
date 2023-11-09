@@ -131,30 +131,34 @@ const ExecutionBoard = () => {
             </div>
             <div className="executions DIO">
               <h2 className="fini">DIO Execution</h2>
-              {executionsInReview.map((task) => (
-                <div className="execution" key={task.id}>
-                  {task.exec_description}
-                  <div className="buttons-container">
-                    <button
-                      className="accept-button"
-                      onClick={() => setDroppedTaskIndex(task.id)}
-                    >
-                      See
-                    </button>
-                    {droppedTaskIndex === task.id && (
+              {localStorage.getItem("isCEO") === "1" ? (
+                <>You cannot make a peer review as a CEO</>
+              ) : (
+                executionsInReview.map((task) => (
+                  <div className="execution" key={task.id}>
+                    {task.exec_description}
+                    <div className="buttons-container">
                       <button
-                        className="thanks-button"
-                        onClick={() => {
-                          handlePeerReviewClick();
-                          // setDroppedTaskIndex(task.id);
-                        }}
+                        className="accept-button"
+                        onClick={() => setDroppedTaskIndex(task.id)}
                       >
-                        Peer review
+                        See
                       </button>
-                    )}
+                      {droppedTaskIndex === task.id && (
+                        <button
+                          className="thanks-button"
+                          onClick={() => {
+                            handlePeerReviewClick();
+                            // setDroppedTaskIndex(task.id);
+                          }}
+                        >
+                          Peer review
+                        </button>
+                      )}
+                    </div>
                   </div>
-                </div>
-              ))}
+                ))
+              )}
             </div>
           </div>
         </div>

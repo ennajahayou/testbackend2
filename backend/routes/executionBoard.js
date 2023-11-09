@@ -143,8 +143,16 @@ router.get("/myExecutions", (req, res) => {
 router.get("/ExecutionsInReview", (req, res) => {
   const { userId } = req.query;
   const db = createConnection();
-  const sql = `SELECT id, exec_description FROM execution WHERE status_ = 'In review' AND id_talent != ?`;
-  db.query(sql, [userId], (err, result) => {
+  const sql = `SELECT e.id, e.exec_description
+  FROM execution e
+  WHERE e.status_ = 'In review'
+    AND e.id_talent != ?
+    AND e.id NOT IN (
+      SELECT DISTINCT pr.id_execution
+      FROM peer_review pr
+      WHERE pr.id_issuer = ?
+    );`;
+  db.query(sql, [userId, userId], (err, result) => {
     if (err) {
       console.error("Erreur lors de la récupération des executions :", err);
       res.status(500).send("Erreur lors de la récupération des executions");

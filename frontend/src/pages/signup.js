@@ -36,7 +36,12 @@ class SignupPage extends Component {
       body: JSON.stringify(userData),
     })
       .then((response) => {
+        console.log("here");
+        console.log(response);
         if (response.status === 200) {
+          console.log("here2");
+          alert("Inscription réussie !");
+          window.location.href = "/login";
           this.setState({
             message:
               'Inscription réussie ! Vous pouvez vous connecter en cliquant sur ce lien directement :  <a href="./login.js">connecter ici</a>.',

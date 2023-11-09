@@ -4,6 +4,7 @@ import { useContext } from "react";
 import { TasksContext } from "../TasksContext";
 import "./ExecutionCreation.css";
 import { Link } from "react-router-dom";
+import axios from "axios";
 
 const ExecutionAttribution = ({ executionId, setIsAttributingExecution }) => {
   const [howAreYouGoingToMakeIt, setHowAreYouGoingToMakeIt] = useState(true);
@@ -33,13 +34,13 @@ const ExecutionAttribution = ({ executionId, setIsAttributingExecution }) => {
 
       setIsAttributingExecution(false);
 
-      var request = new XMLHttpRequest();
-      request.open("POST", "http://localhost:8080/execution/assign", true);
-      request.setRequestHeader(
-        "Content-Type",
-        "application/json;charset=UTF-8"
-      );
-      request.send(JSON.stringify(jsonData));
+      axios
+        .post(process.env.REACT_APP_BACKEND_URL + "/execution/assign", jsonData)
+        .then((res) => {
+          if (res.status === 200) {
+            window.location.reload();
+          }
+        });
     } else {
       alert("Please enter a date");
     }

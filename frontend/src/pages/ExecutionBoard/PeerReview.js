@@ -241,7 +241,8 @@ const PeerReview = ({ executionId, setShowPeerReview }) => {
           <p>You win thanks by Peer reviewing</p>
           <p>80 Thanks</p>
           <span
-            onClick={() => setShowPeerReview(false)}
+            onClick={() => window.location.reload()}
+            // setShowPeerReview(false)}
             style={{ fontSize: "25px", cursor: "pointer" }}
           >
             Return to execution Board

@@ -35,7 +35,13 @@ const ExecutionCreation = ({
     };
     setIsCreatingExecution(false);
 
-    axios.post(process.env.REACT_APP_BACKEND_URL + "/execution", jsonData);
+    axios
+      .post(process.env.REACT_APP_BACKEND_URL + "/execution", jsonData)
+      .then((res) => {
+        if (res.status === 200) {
+          window.location.reload();
+        }
+      });
   };
 
   return (
