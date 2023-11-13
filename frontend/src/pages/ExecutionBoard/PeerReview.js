@@ -158,7 +158,7 @@ const PeerReview = ({ executionId, setShowPeerReview }) => {
           >
             Reactivity
           </h3>
-          <h3 style={{ fontSize: "25px" }}>How reactive were you?</h3>
+          <h3 style={{ fontSize: "25px" }}>How reactive was the talent ?</h3>
           <button
             className="evaluation-button"
             style={{ backgroundColor: "red" }}
@@ -239,7 +239,7 @@ const PeerReview = ({ executionId, setShowPeerReview }) => {
         <div className="evaluation-container1">
           <h1>CONGRATULATION!</h1>
           <p>You win thanks by Peer reviewing</p>
-          <p>80 Thanks</p>
+          <p>XX Thanks</p>
           <span
             onClick={() => window.location.reload()}
             // setShowPeerReview(false)}

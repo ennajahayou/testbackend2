@@ -17,7 +17,6 @@ const AttributionPopUp = ({
   const handleClickAlreadyDone = () => {
     setShowPopUpAttribution(false);
     setSelfReview(true);
-    alert("Your work has been submitted");
   };
 
   return (
