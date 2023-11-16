@@ -1,10 +1,12 @@
-/* .sidebar {
+@import url('https://fonts.googleapis.com/css2?family=Kumbh+Sans:wght@300;400;700&display=swap');
+.sidebar {
     background-color: rgb(0, 88, 139);
     color: white;
     width: 50vh;
     height: 98vh;
     display: flex;
     flex-direction: column;
+    font-family: 'Kumbh Sans', sans-serif;
 }
 
 .sidebar-section {
@@ -18,7 +20,8 @@
     color: white; 
     cursor: pointer; 
     font-size: 18px; 
-    transition: background-color 0.3s; 
+    transition: background-color 0.3s;
+    font-family: 'Kumbh Sans', sans-serif; 
 }
 
 .sidebar-section:hover {
