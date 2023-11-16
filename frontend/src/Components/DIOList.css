@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Kumbh+Sans:wght@300;400;700&display=swap');
 /*.dio-list {
     position: relative;
     display: flex;
@@ -38,7 +39,9 @@
 /* Le conteneur des DIO, si vous en avez un */
 .dio-list {
   width: 90%; /* Fixer la largeur à 90% de la largeur du parent */
-  margin: auto; /* Ajustez selon vos besoins */
+  margin: auto;
+  font-family: "Kumbh Sans";
+   /* Ajustez selon vos besoins */
 }
 
 /* Style pour chaque DIO */
@@ -57,7 +60,12 @@
 .dio-text {
   width: 70%;
   font-size: 20px;
-  font-family: "Kumbh Sans"; /* Ajustez la valeur en fonction de vos besoins */
+  font-family: "Kumbh Sans";
+  font-weight: 500;
+   /* Ajustez la valeur en fonction de vos besoins */
+}
+.dio-text h3{
+  font-weight: 500;
 }
 
 .participate-button {

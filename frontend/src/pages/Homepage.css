@@ -33,6 +33,7 @@
   text-align: center; 
 }*/
 
+
 .App {
   display: flex;
 
@@ -66,12 +67,12 @@
   font-size: 28px; /* Ajustez la taille selon vos besoins */
   text-align: left;
   margin-left: 60px; /* Ajustez la marge selon vos besoins pour aligner le texte à gauche */
-  color: #666;
-
+  color: #305E7E;
   border-bottom: 1px solid white; /* Ajoute une bordure en bas de l'élément */
   padding-bottom: 10px; /* Ajoute un espace en dessous du texte et au-dessus de la ligne */
   margin-bottom: 50px;
   font-family: "Kumbh Sans";
+  font-weight: 510;
   /* Choisissez la couleur que vous préférez */
 }
 
