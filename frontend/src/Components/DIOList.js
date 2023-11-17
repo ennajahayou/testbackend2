@@ -11,7 +11,7 @@ const DIOList = ({ dioData }) => (
           <p>{dio.description}</p>
         </div>
         <Link to="/DIO">
-          <button className="participate-button">Push</button>
+          <button className="participate-button">PUSH</button>
         </Link>
       </div>
     ))}

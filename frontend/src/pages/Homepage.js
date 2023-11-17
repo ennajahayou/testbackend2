@@ -2,6 +2,7 @@ import React from "react";
 import "./Homepage.css";
 import Sidebar from "../Components/Sidebarhomepage";
 import DIOList from "../Components/DIOList";
+import Wallet from "../Components/Wallet";
 
 import logo3 from '../images/logo3.png';
 
@@ -19,13 +20,8 @@ const Homepage = () => (
   <div className="App">
     <Sidebar />
     <div className="main-content">
-      <div className="logo-bar">
-
-
-  
-      <img className="logo" src={logo3}/>
-
-      </div>
+      <h4 className="wallet">My Wallet</h4>
+      <Wallet  />
       <h4 className="titre">My DIO</h4>
       <DIOList dioData={dioData} />
     </div>

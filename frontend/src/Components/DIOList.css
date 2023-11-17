@@ -74,10 +74,9 @@
   font-size: 30px; /* Ajustez la taille de la police si nécessaire */
   border: none; /* Pour supprimer la bordure par défaut des boutons */
   background-color: blue; /* Pour changer la couleur de fond du bouton */
-  color: white; /* Pour changer la couleur du texte du bouton */
+  color: black; /* Pour changer la couleur du texte du bouton */
   cursor: pointer; /* Pour changer le curseur en main lorsque vous survolez le bouton */
   border-radius: 40px; /* Pour avoir des coins arrondis sur le bouton */
-
   justify-content: center;
   align-items: center;
   font-family: "Kumbh Sans";

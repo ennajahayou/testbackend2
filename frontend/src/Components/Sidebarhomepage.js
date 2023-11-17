@@ -1,10 +1,12 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import "./Sidebar.css";
-
+import "./Sidebarhomepage.css";
+import logo from "../images/logo.png";
 const Sidebar = () => (
   <div className="sidebar">
-    <button className="sidebar-section">Work Space</button>
+    <div className="sidebar-section">
+    <img className="image" src={logo} alt="Logo"  />
+    </div>
     <button className="sidebar-section">My DIOs</button>
     <button className="sidebar-section">Create a new DIO</button>
     <button className="sidebar-section">Discover DIOs</button>

@@ -1,0 +1,84 @@
+/* Styles pour les différentes parties de la wallet */
+.wallet-container {
+    display: flex;
+    align-items: flex-start;
+  }
+  
+  /* Case principale */
+  .main-case {
+    background-color: white;
+    padding: 20px;
+    margin-right: 10px;
+  }
+  
+  /* Contenu de la case principale */
+  .main-case-content {
+    border: 1px solid black;
+    height: 150px; /* Ajustez la hauteur selon vos besoins */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  /* Conteneur pour les trois cases alignées horizontalement */
+  .horizontal-cases-container {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  /* Style pour chaque case horizontale */
+  .horizontal-case {
+    background-color: white;
+    border: 1px solid black;
+    margin-bottom: 10px;
+    padding: 10px;
+  }
+  
+  /* Flèche à droite */
+  .dio-item {
+    width: 90%; /* Fixer la largeur à 90% de la largeur du parent */
+    margin: auto;
+    font-family: "Kumbh Sans";
+     /* Ajustez selon vos besoins */
+  }
+  .dio-item1 {
+    width: 30%; /* Fixer la largeur à 90% de la largeur du parent */
+    margin: auto;
+    font-family: "Kumbh Sans";
+     /* Ajustez selon vos besoins */
+  }
+  .dio-item2 {
+    width: 30%; /* Fixer la largeur à 90% de la largeur du parent */
+    margin: auto;
+    font-family: "Kumbh Sans";
+     /* Ajustez selon vos besoins */
+  }
+  .dio-item3 {
+    width: 30%; /* Fixer la largeur à 90% de la largeur du parent */
+    margin: auto;
+    font-family: "Kumbh Sans";
+     /* Ajustez selon vos besoins */
+  }
+  .horizontal-container {
+    width: fit-content;
+    text-align: center;
+    margin: 1em auto;
+    display: table;
+}
+  
+  /* Styles pour chaque div */
+  .tip,
+  .thanks,
+  .money {
+    width: 100px; /* Largeur des divs, ajustez selon vos besoins */
+    height: 100px; /* Hauteur des divs, ajustez selon vos besoins */
+    background-color: #f0f0f0; /* Couleur de fond */
+    border: 1px solid #ccc; /* Bordure */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    margin-right: 10px; /* Espacement entre les divs, ajustez selon vos besoins */
+  }
+  
+  
