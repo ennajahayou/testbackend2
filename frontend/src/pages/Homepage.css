@@ -36,6 +36,7 @@
 
 .App {
   display: flex;
+  height: 832px;
 
   /* autres styles */
 }
@@ -85,6 +86,7 @@
   margin-bottom: 50px;
   font-family: "Kumbh Sans";
   font-weight: 510;
+  margin-top: 90px;
   /* Choisissez la couleur que vous préférez */
 }
 

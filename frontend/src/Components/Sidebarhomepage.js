@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import "./Sidebarhomepage.css";
 import logo from "../images/logo.png";
 const Sidebar = () => (
-  <div className="sidebar">
+  <div className="sidebarhome">
     <div className="sidebar-section">
     <img className="image" src={logo} alt="Logo"  />
     </div>
