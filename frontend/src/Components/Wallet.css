@@ -28,11 +28,13 @@
   margin-left: 21px;
   text-align: center;
   font-family: "Kumbh Sans";
+  
 }
 .wallet-list {
   width: 90%; /* Fixer la largeur à 90% de la largeur du parent */
   margin: auto;
   font-family: "Kumbh Sans";
+  display: flex;
    /* Ajustez selon vos besoins */
 }
 
@@ -81,4 +83,17 @@
 
 .wallet-item h3 {
   font-size: 35px; /* Ou la taille que vous souhaitez */
+}
+
+.arrow-button {
+  font-size: 40px; /* Increase the font size for a bigger arrow */
+  padding: 2px 2px;
+  background-color: transparent; /* Transparent background */
+  border: none; /* Remove the border */
+  cursor: pointer;
+  color: black; /* Color of the arrow */
+}
+.arrow-button:hover {
+  color: black; /* Change the color on hover (replace 'red' with your desired color) */
+  background-color: transparent; /* Ensuring the background stays transparent on hover */
 }

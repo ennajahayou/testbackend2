@@ -5,6 +5,7 @@ import "./Wallet.css";
 
 const Wallet = ({ dioData }) => (
   <div className="wallet-list">
+  <div >
       <div  className="wallet-item">
           <h4> Value of my tip  </h4>
           <h4> Total Thanks</h4>
@@ -16,7 +17,11 @@ const Wallet = ({ dioData }) => (
               <div className="row-item">8 200€</div>
           </div>
   </div>
-  
+  <div>
+    <h4>Voir plus</h4>
+  <button className="arrow-button">➡</button>
+  </div>
+  </div>
 );
 
 export default Wallet;

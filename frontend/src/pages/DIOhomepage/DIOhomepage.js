@@ -1,6 +1,6 @@
 import { useState, useContext } from "react";
 
-import Sidebar from "../../Components/Sidebar";
+import Sidebar from "../../Components/SidebarDIO";
 import ExecutionInProgress from "./ExecutionCard/ExecutionInProgress";
 import ExecutionInReview from "./ExecutionCard/ExecutionInReview";
 import ExecutionNotAssigned from "./ExecutionCard/ExecutionNotAssigned";
@@ -12,6 +12,7 @@ import AttributionPopUp from "./PopUp/AttributionPopUp";
 import ExecutionCreation from "./ExecutionCreation";
 import SelfReview from "./SelfReview";
 
+import personna from 'C:/Users/Achra/Desktop/thanksandtip/frontend/src/images/icones/personna.png';
 import "./DIOhomepage.css";
 
 import { TasksContext } from "../TasksContext";
@@ -94,10 +95,11 @@ const DIOhomepage = () => {
       ) : (
         <div className="main-content">
           <div className="logo-bar">
-            <h1>DIO 1</h1>
-            <h1 className="thanks">
-              0 <img className="symbole" src={logo5} />
-            </h1>
+            <img src={personna} />
+            <h1>DIO Thanks and Tip</h1>
+            <h4 className="thanks">
+              1 429 690 <img className="symbole" src={logo5} />
+            </h4>
           </div>
 
           {/* Messaging */}
@@ -106,12 +108,12 @@ const DIOhomepage = () => {
               <div className="messages">{feed}</div>
             </div>
 
-            <ExecutionMessaging
+          </div>
+          <ExecutionMessaging
               createExecutionText={createExecutionText}
               setCreateExecutionText={setCreateExecutionText}
               setShowPopUp={setShowPopUp}
             />
-          </div>
           {/* Fin Messaging */}
           {showPopUp && (
             <SubmitionPopUp

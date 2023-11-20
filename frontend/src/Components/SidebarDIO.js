@@ -4,24 +4,36 @@ import "./Sidebar.css";
 
 
 import logo from '../images/logo.png';
+import archiver from '../images/icones/archiver.png';
+import idee from '../images/icones/idee.png';
+import message from '../images/icones/message.png';
+import poignee from '../images/icones/poignee-de-main.png';
+import star from '../images/icones/star.png';
+import story from '../images/icones/story-board.png';
+
 
 const Sidebar = () => (
   <div className="sidebar">
-    <img className="sidebar-section" src={logo}/>
+    <div className="sidebar-section">
+    <img className="image" src={logo} alt="Logo"  />
+    </div>
     <button className="sidebar-section">
-      My feed
+       <img src={message} />My feed
     </button>
     <button className="sidebar-section">
-      Execution Board
+       <img src={star}  />CEO Profile
     </button>
     <button className="sidebar-section">
-      Push an idea
+       <img src={story}  />Work Board
     </button>
     <button className="sidebar-section">
-      Co-opt talent
+        <img src={idee}  />Push an idea
     </button>
     <button className="sidebar-section">
-      DIO feed
+        <img src={poignee}  />Co-opt talent
+    </button>
+    <button className="sidebar-section">
+        <img src={archiver}  />DIO feed
     </button>
     <div className="sidebar-section espace"></div>
     <button className="sidebar-section">DIO settings</button>

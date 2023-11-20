@@ -2,7 +2,7 @@
 .sidebarhome {
     background-color: rgb(0, 88, 139);
     color: white;
-    width: 312;
+    width: 312px;
     height: 832px;
     display: flex;
     flex-direction: column;
@@ -13,7 +13,6 @@
     /* Assurez-vous que la div parente est positionnée relativement */
     position: relative;
     /* Ajustez la taille si nécessaire */
-
     width: 160px; /* Largeur de l'image */
     height: 130px; /* Hauteur exemple */
   }
@@ -30,6 +29,7 @@
     font-size: 18px; 
     transition: background-color 0.3s;
     font-family: 'Kumbh Sans', sans-serif; 
+    width: 312px;
 }
 
 .sidebarhome-section:hover {
@@ -48,16 +48,7 @@
 /* Le conteneur de la barre latérale */
 
 /* Tous les boutons de la barre latérale */
-.sidebar-section {
-  flex-grow: 1;
-  flex-basis: 1;
-  background-color: #63798a;
-  font-size: xx-large;
-  border: 1px solid white;
-  cursor: pointer;
-  font-family: "Kumbh Sans";
-  color: white;
-}
+
 
 /* Le bouton Work Space */
 .sidebar-section:first-child {
