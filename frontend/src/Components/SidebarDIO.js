@@ -14,7 +14,7 @@ import story from '../images/icones/story-board.png';
 
 const Sidebar = () => (
   <div className="sidebar">
-    <div className="sidebar-section">
+    <div className="sidebar-section-image">
     <img className="image" src={logo} alt="Logo"  />
     </div>
     <button className="sidebar-section">

@@ -133,7 +133,7 @@
 
 .submition-pop-up {
   position: absolute;
-  top: 50%;
+  top: 70%;
   left: 50%;
   transform: translate(-50%, -50%);
   background-color: rgba(114, 114, 114, 0.8);
@@ -150,7 +150,8 @@
 }
 
 .submitButton {
-  background-color: #211c66;
+  background-color:  #305E7E;
+  ;
   border: none;
   color: white;
   /* padding: 15px 32px; */
@@ -161,6 +162,10 @@
   margin: 4px 2px;
   cursor: pointer;
   border-radius: 10px;
+}
+.submitButton:hover {
+  color: white; /* Change the color on hover (replace 'red' with your desired color) */
+  background-color: gray; /* Ensuring the background stays transparent on hover */
 }
 
 .scroll {

@@ -1,6 +1,10 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import "./Sidebarhomepage.css";
+
+import personna from '../images/icones/personna.png';
+
+
 import logo from "../images/logo.png";
 const Sidebar = () => (
   <div className="sidebarhome">
@@ -16,7 +20,7 @@ const Sidebar = () => (
     <button className="sidebar-section">Invite New Member</button>
     <div className="sidebar-section espace"></div>
     <button className="sidebar-section">
-      <Link to="/login">My profile : {localStorage.getItem("userName")}</Link>
+      <Link to="/login"><img src={personna} />My profile : {localStorage.getItem("userName")}</Link>
     </button>
   </div>
 );

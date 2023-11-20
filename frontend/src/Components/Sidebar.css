@@ -12,31 +12,55 @@
 .image {
   /* Assurez-vous que la div parente est positionnée relativement */
   position: relative;
+  justify-content: right;
   /* Ajustez la taille si nécessaire */
   width: 160px; /* Largeur de l'image */
   height: 130px; /* Hauteur exemple */
+}
+
+.sidebar-section-image {
+  flex-grow: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-bottom: 1px solid transparent;
+  background-color: transparent; 
+  border: none; 
+  color: white; 
+  cursor: pointer; 
+  transition: background-color 0.3s;
+  font-family: 'Kumbh Sans', sans-serif;
+  width: 312px; 
+  flex-basis: 1;
+  background-color: #63798a;
+  font-size: xx-large;
 }
 
 .sidebar-section {
     flex-grow: 1;
     display: flex;
     align-items: center;
-    justify-content: center;
-    border-bottom: 1px solid white;
+    justify-content: last ;
+    border-bottom: 1px solid transparent;
     background-color: transparent; 
     border: none; 
     color: white; 
     cursor: pointer; 
-    font-size: 18px; 
     transition: background-color 0.3s;
     font-family: 'Kumbh Sans', sans-serif;
     width: 312px; 
+    flex-basis: 1;
+    background-color: #63798a;
+    font-size: xx-large;
+    text-align: center;
 }
 
 .sidebar-section:hover {
-    background-color: lightblue; 
-    color: darkblue; 
+  color: white; /* Change the color on hover (replace 'red' with your desired color) */
+  background-color: gray;
+  border: 1px solid white; /* Ensuring the background stays transparent on hover */
 }
+
 
 .sidebar-section:last-child {
     border-bottom: none;
@@ -52,16 +76,7 @@
 }
 
 /* Tous les boutons de la barre latérale */
-.sidebar-section {
-  flex-grow: 1;
-  flex-basis: 1;
-  background-color: #63798a;
-  font-size: xx-large;
-  border: 1px solid white;
-  cursor: pointer;
-  font-family: "Kumbh Sans";
-  color: white;
-}
+
 
 /* Le bouton Work Space */
 .sidebar-section:first-child {

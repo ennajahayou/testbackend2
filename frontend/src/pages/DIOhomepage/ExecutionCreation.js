@@ -49,29 +49,29 @@ const ExecutionCreation = ({
       <div className="attributionFields">
         {howAreYouGoingToMakeIt && (
           <>
-            <>How are you going to make it</>
+            <h2>How are you going to make it ?</h2>
             <input
               type="text"
               className="textfield"
               onKeyDown={handleKeyDown}
-              placeholder="How are you going to make it ?"
+              placeholder="describe it here..."
               value={howMake}
               onChange={(e) => {
                 setHowMake(e.target.value);
               }}
             />
-            <button
+            <button className="next"
               onClick={() => {
                 handleNext();
               }}
             >
-              Next
+              Next ➡
             </button>
           </>
         )}
         {!howAreYouGoingToMakeIt && (
           <>
-            <>When are you going to deliver it</>
+            <h2>When are you going to deliver it ?</h2>
             <input
               type="date"
               className="textfield"
@@ -80,8 +80,7 @@ const ExecutionCreation = ({
                 setDeadline(e.target.value);
               }}
             />
-
-            <button onClick={handleSubmit}>Next</button>
+            <button className="next2" onClick={handleSubmit}>Push it to your CEO ➡</button>
           </>
         )}
       </div>
