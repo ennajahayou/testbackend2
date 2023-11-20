@@ -12,7 +12,7 @@ import AttributionPopUp from "./PopUp/AttributionPopUp";
 import ExecutionCreation from "./ExecutionCreation";
 import SelfReview from "./SelfReview";
 
-import personna from 'C:/Users/Achra/Desktop/thanksandtip/frontend/src/images/icones/personna.png';
+import personna from '../../images/icones/personna.png';
 import "./DIOhomepage.css";
 
 import { TasksContext } from "../TasksContext";

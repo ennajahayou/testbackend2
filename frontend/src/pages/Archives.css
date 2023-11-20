@@ -42,7 +42,7 @@
    /* pour centrer verticalement */
  /* pour centrer horizontalement */
     width: 100%; 
-    height: 98vh;/* ajustez selon vos besoins */
+    height: 832px;/* ajustez selon vos besoins */
 }
 
 .Archives {
@@ -51,15 +51,28 @@
     flex-grow: 1;
     width: 70%;
     background-color: #B7D6ED;
-    height: 93vh;
+    height: 95%;
 
 }
+
+.Archives-board {
+    position: relative;
+    width: 100%;
+    height: 100px; /* exemple de hauteur, ajustez selon vos besoins */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Kumbh Sans', sans-serif;
+    margin-top: 18px;
+  
+  }
 
 .Archives h1 {
     font-size: xx-large; /* Augmente la taille de la police */
     margin-bottom: 20px;
     font-family: 'Kumbh Sans';
-    color: #082247;
+    color: #305E7E;
+
      /* Ajoutez de l'espace en dessous du titre */
 }
 
@@ -67,7 +80,7 @@
 height: max-content;
 background-color: white;
 padding: 40px;
-height: 70vh;
+height: 550px;
 
 overflow-x: hidden; /* Cache la barre de défilement horizontale */
 overflow-y: auto; 

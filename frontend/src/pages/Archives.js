@@ -4,7 +4,7 @@ import { useContext } from 'react';
 import { TasksContext } from './TasksContext';
 
 import './Archives.css';
-import Sidebar from '../Components/Sidebar';
+import Sidebar from '../Components/SidebarDIO';
 
 import logo5 from '../images/logo5.png';
 
@@ -31,8 +31,10 @@ const Archives = () => {
     <div className="container">
         <Sidebar />
         <div className="Archives">
-        <h1>Archives</h1>
+        <div className="Archives-board">    
+        <h1>Archives Thanks and Tip</h1>
         <h1 className="thanks">0 <img className="symbole" src={logo5}/></h1>
+        </div>
         <div className='actions'>
         {tasks.map((task, index) => (
                 <div key={index}>

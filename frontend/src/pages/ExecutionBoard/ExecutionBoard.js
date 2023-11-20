@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "./ExecutionBoard.css";
 // import Sidebar from "../../../Components/Sidebar";
-import Sidebar from "../../Components/Sidebar";
+import Sidebar from "../../Components/SidebarDIO.js";
 import PeerReview from "./PeerReview";
 import SelfReview from "./SelfReview";
 import axios from "axios";
@@ -9,17 +9,6 @@ import ExecutionCards from "./ExecutionCards";
 
 import logo5 from "../../images/logo5.png";
 
-// const Myexecution = [
-//   "Développer la fonctionnalité X Développer la fonctionnalité X Développer la fonctionnalité X Développer la fonctionnalité X Développer la fonctionnalité X Développer la fonctionnalité X Développer la fonctionnalité X Développer la fonctionnalité X Développer la fonctionnalité X DéveDévelopper la fonctionnalité X Développer la fonctionnalité X DéveDévelopper la fonctionnalité X Développer la fonctionnalité X DéveDévelopper la fonctionnalité X Développer la fonctionnalité X DéveDévelopper la fonctionnalité X Développer la fonctionnalité X DéveDévelopper la fonctionnalité X Développer la fonctionnalité X DéveDévelopper la fonctionnalité X Développer la fonctionnalité X DéveDévelopper la fonctionnalité X Développer la fonctionnalité X DéveDévelopper la fonctionnalité X ",
-//   "Tester le composant Y",
-//   // ... ajoutez d'autres tâches ici
-// ];
-
-// const DIOexecution = [
-//   "Créer la maquette de la page d’accueil",
-//   "Implémenter le routage",
-//   // ... ajoutez d'autres tâches terminées ici
-// ];
 
 const ExecutionBoard = () => {
   const [droppedTaskIndex, setDroppedTaskIndex] = useState(null);
@@ -74,9 +63,8 @@ const ExecutionBoard = () => {
   ));
 
   return (
-    <div className="container">
-      <Sidebar />
-
+    <div className="container1">
+      <Sidebar/>
       {showPeerReview ? (
         <PeerReview
           executionId={droppedTaskIndex}
@@ -88,11 +76,13 @@ const ExecutionBoard = () => {
           setShowEvaluation={setShowEvaluation}
         />
       ) : (
-        <div className="execution-board">
-          <h1>Execution Board</h1>
+        <div className="main-content">
+          <div className="execution-board">
+          <h1>Work Board</h1>
           <h1 className="thanks">
-            0 <img className="symbole" src={logo5} />
+            1 429 690 <img className="symbole" src={logo5} />
           </h1>
+          </div>
           <div className="execution-container">
             <div className="executions my">
               <h2>My Execution</h2>
@@ -130,7 +120,7 @@ const ExecutionBoard = () => {
               ))} */}
             </div>
             <div className="executions DIO">
-              <h2 className="fini">DIO Execution</h2>
+              <h2 className="fini">Peer Reviews</h2>
               {localStorage.getItem("isCEO") === "1" ? (
                 <>You cannot make a peer review as a CEO</>
               ) : (
