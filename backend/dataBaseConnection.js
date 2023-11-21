@@ -3,9 +3,9 @@ const env = require("dotenv").config();
 
 const connectToDatabase = () => {
   const connectionInfo = {
-    host: "thankstip-database.censrelaamzf.eu-west-3.rds.amazonaws.com", //process.env.DB_HOST,
-    user: "admin", //process.env.DB_USER,
-    password: "Thanksandtip2023!",
+    host: "localhost", //process.env.DB_HOST,
+    user: "root", //process.env.DB_USER,
+    password: "123456",
     database: "thankstip",
     port: 3306,
   };

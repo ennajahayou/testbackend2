@@ -18,13 +18,19 @@ const Sidebar = () => (
     <img className="image" src={logo} alt="Logo"  />
     </div>
     <button className="sidebar-section">
+      <Link to="/DIO">
        <img src={message} />My feed
+       </Link>
+    </button>
+    <button className="sidebar-section">  
+       <Link to="/CEOProfil">
+       <img src={star}  />CEO Profile        
+       </Link>
     </button>
     <button className="sidebar-section">
-       <img src={star}  />CEO Profile
-    </button>
-    <button className="sidebar-section">
+       <Link to="/ExecutionBoard">
        <img src={story}  />Work Board
+       </Link>
     </button>
     <button className="sidebar-section">
         <img src={idee}  />Push an idea
@@ -33,7 +39,9 @@ const Sidebar = () => (
         <img src={poignee}  />Co-opt talent
     </button>
     <button className="sidebar-section">
+       <Link to="/Archives">
         <img src={archiver}  />DIO feed
+        </Link>
     </button>
     <div className="sidebar-section espace"></div>
     <button className="sidebar-section">DIO settings</button>

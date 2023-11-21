@@ -44,7 +44,7 @@
   padding: 5px; /* Espace à l'intérieur des rectangles */
   margin-bottom: 15px; /* Espace entre les rectangles */
   border: 1px solid #ccc; /* Bordure autour des rectangles */
-  border-radius: 5px; /* Coins arrondis */
+  border-radius: 20px; /* Coins arrondis */
   display: flex;
   align-items: center;
   justify-content: space-around;

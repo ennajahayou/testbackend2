@@ -16,6 +16,7 @@
   margin-top: 18px;
 }
 
+
 .messaging-container {
   display: flex;
   flex-direction: column;
@@ -47,7 +48,9 @@
   margin: 20px; /* arrondit les coins */
   margin-bottom: 30px; /* espace entre les messages */
   padding: 30px; /* espace à l'intérieur des bulles de message */
-  color: white;
+  color: black;
+  font-family: 'Kumbh Sans', sans-serif;
+  font-size: 18px ;
   /* couleur du texte pour une meilleure visibilité sur le fond bleu */
 }
 
@@ -120,15 +123,15 @@
   font-size: 15px; /* Ajustez la taille de la police si nécessaire */
   border: none; /* Pour supprimer la bordure par défaut des boutons */
   background-color: white; /* Pour changer la couleur de fond du bouton */
-  color: rgba(
-    6,
-    38,
-    12,
-    0.852
-  ); /* Pour changer la couleur du texte du bouton */
+  color: black; /* Pour changer la couleur du texte du bouton */
   cursor: pointer; /* Pour changer le curseur en main lorsque vous survolez le bouton */
   border-radius: 40px;
   font-weight: bold;
+}
+
+.send-button:hover{
+  background-color: gray;
+  color: black;
 }
 
 .submition-pop-up {
@@ -162,6 +165,7 @@
   margin: 4px 2px;
   cursor: pointer;
   border-radius: 10px;
+  font-family: 'Kumbh Sans', sans-serif;
 }
 .submitButton:hover {
   color: white; /* Change the color on hover (replace 'red' with your desired color) */

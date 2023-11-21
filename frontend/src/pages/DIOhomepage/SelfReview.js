@@ -3,6 +3,9 @@ import { useState, useContext } from "react";
 import axios from "axios";
 import { TasksContext } from "../TasksContext";
 
+import righthand from '../../images/icones/hand-right.png';
+import lefthand from '../../images/icones/hand-left.png';
+
 const SelfReview = ({
   executionDescription,
   setShowEvaluation,
@@ -79,17 +82,18 @@ const SelfReview = ({
     <div className="evaluation-container">
       {currentQuestion === 0 ? (
         <>
-          <h2>Put your work</h2>
-          <textarea
+          <h2>My work</h2>
+          <input
             className="evaluation-textarea"
+            placeholder="Commentaire..."
             value={workText}
             onChange={(e) => setWorkText(e.target.value)}
           />
           <button
-            className="evaluation-button"
+            className="evaluation-button1"
             onClick={() => setCurrentQuestion(1)}
           >
-            Next
+            Done
           </button>
         </>
       ) : currentQuestion === 1 ? (
@@ -136,18 +140,22 @@ const SelfReview = ({
             Prodigious
           </button>
         </>
-      ) : (
+      ) : (     
         <>
           <h1>CONGRATULATION!</h1>
           <p>You will see your thanks in</p>
           <p>23:59:47</p>
+          <div className="congratulations">
+          <img className="lefthand" src={lefthand} />
           <button
-            className="evaluation-button"
+            className="backtofeed-button"
             onClick={() => window.location.reload()}
             // setShowEvaluation(false)}
           >
-            Next
+            Back to Feed
           </button>
+          <img className="righthand" src={righthand} />
+          </div>
         </>
       )}
     </div>

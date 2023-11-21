@@ -95,7 +95,7 @@ const DIOhomepage = () => {
       ) : (
         <div className="main-content">
           <div className="logo-bar">
-            <img src={personna} />
+            <img className="personna" src={personna} />
             <h1>DIO Thanks and Tip</h1>
             <h4 className="thanks">
               1 429 690 <img className="symbole" src={logo5} />
