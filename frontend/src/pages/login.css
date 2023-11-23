@@ -1,11 +1,12 @@
+
 .login-container {
   background: #b7d6ed; /* Dégradé de couleurs */
   border-radius: 15px;
   padding: 20px;
   text-align: center;
   box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.2);
-
   font-family: Arial, sans-serif;
+  height: 100vh;
   /* width: ; */
   /* max-width: 600px; */
   /* margin: 0 auto;
@@ -15,11 +16,27 @@
   /* background-color: #f9f9f9; */
   float: none;
   flex-grow: 100;
+  display: 'flex';
+  flex-direction: 'column';
 }
 
-.login-container h2 {
-  color: #fff;
-  font-size: 24px;
+.image{
+  width: 10%;
+  height: 10vh;
+  justify-content: center;
+  align-items: center;
+  margin-left: 20%;
+}
+.image .logo{
+  justify-content: center;
+  align-items: center;
+  margin-left: 50%;
+  width: 100vh;
+  height: 20vh;
+}
+.forme{
+  height: 60vh;
+  margin-top: 10%;
 }
 
 .form-group {
@@ -28,20 +45,27 @@
 
 .form-group label {
   display: block;
-  color: #fff;
+  color: black;
   font-size: 16px;
   margin-bottom: 5px;
+  margin-right: 25%;
+  font-family: "Kumbh Sans";
 }
 
 .form-group input {
-  width: 100%;
+  width: 30%;
   padding: 10px;
   border: none;
-  border-radius: 5px;
+  border-radius: 20px;
   background: rgba(255, 255, 255, 0.8);
   font-size: 16px;
   color: #333;
   outline: none;
+  height: 4vh;
+}
+
+.p{
+  height: 10vh;
 }
 
 .form-group input[type="email"] {
@@ -53,18 +77,18 @@
 }
 
 button {
-  background: #6b47ff;
-  color: #fff;
+  background: transparent;
+  color: black;
   font-size: 18px;
   padding: 10px 20px;
   border: none;
   border-radius: 5px;
   cursor: pointer;
-  transition: background 0.3s;
+  transition:  0.3s;
 }
 
 button:hover {
-  background: #ff6b6b;
+  background: transparent;
 }
 
 .message {

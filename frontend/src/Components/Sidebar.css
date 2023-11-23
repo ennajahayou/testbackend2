@@ -9,12 +9,12 @@
     font-family: 'Kumbh Sans', sans-serif;
 }
 
-.image {
+.image_bar {
   /* Assurez-vous que la div parente est positionnée relativement */
   position: relative;
   justify-content: right;
   /* Ajustez la taille si nécessaire */
-  width: 160px; /* Largeur de l'image */
+  width: 170px; /* Largeur de l'image */
   height: 130px; /* Hauteur exemple */
 }
 

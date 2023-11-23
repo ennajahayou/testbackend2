@@ -8,6 +8,7 @@ import SubmitionPopUp from "./PopUp/SubmitionPopUp";
 import ExecutionMessaging from "./ExecutionMessaging";
 import ExecutionAttribution from "./ExecutionAttribution";
 import WorkDonePopUp from "./PopUp/WorkDonePopUp";
+import Work from "./PopUp/Work";
 import AttributionPopUp from "./PopUp/AttributionPopUp";
 import ExecutionCreation from "./ExecutionCreation";
 import SelfReview from "./SelfReview";
@@ -28,6 +29,7 @@ const DIOhomepage = () => {
 
   const [showPopUp, setShowPopUp] = useState(false);
   const [showPopUpWorkDone, setShowPopUpWorkDone] = useState(false);
+  const [showPopUpWork, setShowPopUpWork] = useState(false);
   const [showPopUpAttribution, setShowPopUpAttribution] = useState(false);
   const [createExecutionText, setCreateExecutionText] = useState("");
   // const [executions, setExecutions] = useState([]);
@@ -126,9 +128,14 @@ const DIOhomepage = () => {
           {showPopUpWorkDone && (
             <WorkDonePopUp
               setShowPopUpWorkDone={setShowPopUpWorkDone}
+              setShowPopUpWork={setShowPopUpWork}
+            />
+          )}
+          {showPopUpWork && (
+            <Work
+              setShowPopUpWork={setShowPopUpWork}
               setIsCreatingExecution={setIsCreatingExecution}
               setSelfReview={setCreationExecutionWorkAlreadyDone}
-              setExecutionId={setExecutionId}
             />
           )}
           {showPopUpAttribution && (

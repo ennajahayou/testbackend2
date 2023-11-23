@@ -80,23 +80,7 @@ const SelfReview = ({
 
   return (
     <div className="evaluation-container">
-      {currentQuestion === 0 ? (
-        <>
-          <h2>My work</h2>
-          <input
-            className="evaluation-textarea"
-            placeholder="Commentaire..."
-            value={workText}
-            onChange={(e) => setWorkText(e.target.value)}
-          />
-          <button
-            className="evaluation-button1"
-            onClick={() => setCurrentQuestion(1)}
-          >
-            Done
-          </button>
-        </>
-      ) : currentQuestion === 1 ? (
+      { currentQuestion === 0 ? (
         <>
           <h2>How difficult was it?</h2>
           <button
@@ -124,7 +108,7 @@ const SelfReview = ({
             Very hard
           </button>
         </>
-      ) : currentQuestion === 2 ? (
+      ) : currentQuestion === 1 ? (
         <>
           <h2>How reactive were you?</h2>
           <button className="evaluation-button" onClick={() => handleSubmit(0)}>

@@ -2,6 +2,9 @@ import React, { Component } from "react";
 import "./login.css";
 import Sidebar from "../Components/Sidebar";
 
+import Homepage from "./Homepage";
+import thanksandtip from '../images/Thanksandtip.png';
+
 class LoginPage extends Component {
   constructor(props) {
     super(props);
@@ -41,7 +44,7 @@ class LoginPage extends Component {
 
           console.log(localStorage.getItem("isCEO"));
 
-          window.location.href = "/";
+          window.location.href = "/Homepage";
         } else {
           // Afficher un message d'erreur
           alert("Identifiant ou mot de passe incorrect.");
@@ -53,13 +56,13 @@ class LoginPage extends Component {
   };
   render() {
     return (
-      <div className="App">
-        <Sidebar />
         <div className="login-container">
-          <h2>Connexion</h2>
-          <form>
+          <div className='image' >
+          <img className='logo' src={thanksandtip} alt="Description de l'image" />
+          </div>
+          <form className='forme'> 
             <div className="form-group">
-              <label>Email :</label>
+              <label>Mail Adress </label>
               <input
                 type="email"
                 value={this.state.email}
@@ -67,7 +70,7 @@ class LoginPage extends Component {
               />
             </div>
             <div className="form-group">
-              <label>Mot de passe :</label>
+              <label>Passeword </label>
               <input
                 type="password"
                 value={this.state.password}
@@ -75,7 +78,7 @@ class LoginPage extends Component {
               />
             </div>
             <button type="button" onClick={this.handleLogin}>
-              Se connecter
+              Log in ➡
             </button>
           </form>
           <p>
@@ -83,7 +86,6 @@ class LoginPage extends Component {
             <a href="./signup">créer un compte</a>.
           </p>
         </div>
-      </div>
     );
   }
 }

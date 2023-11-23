@@ -4,23 +4,19 @@ import "../DIOhomepage.css";
 
 const WorkDonePopUp = ({
   setShowPopUpWorkDone,
-  setIsCreatingExecution,
-  setSelfReview,
-  setExecutionId,
+  setShowPopUpWork,
 }) => {
   // TODO: add real information in jsonData
 
   // const { setProp, addProp } = useContext(TasksContext);
 
   const handleClickNotDone = () => {
-    setIsCreatingExecution(true);
     setShowPopUpWorkDone(false);
   };
 
   const handleClickAlreadyDone = () => {
     setShowPopUpWorkDone(false);
-    setExecutionId(0);
-    setSelfReview(true);
+    setShowPopUpWork(true);
   };
 
   return (

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import "./Sidebar.css";
 
@@ -12,10 +12,19 @@ import star from '../images/icones/star.png';
 import story from '../images/icones/story-board.png';
 
 
-const Sidebar = () => (
+function Sidebar  () {
+   const [content, setContent] = useState([]);
+
+   useEffect(() => {
+       fetch('/api/content')
+           .then(response => response.json())
+           .then(data => setContent(data))
+           .catch(error => console.error('Error fetching data:', error));
+   }, []);
+   return (
   <div className="sidebar">
     <div className="sidebar-section-image">
-    <img className="image" src={logo} alt="Logo"  />
+    <img className="image_bar" src={logo} alt="Logo"  />
     </div>
     <button className="sidebar-section">
       <Link to="/DIO">
@@ -46,6 +55,7 @@ const Sidebar = () => (
     <div className="sidebar-section espace"></div>
     <button className="sidebar-section">DIO settings</button>
   </div>
-);
+   )
+};
 
 export default Sidebar;

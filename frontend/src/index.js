@@ -30,6 +30,7 @@ import LoginPage from "./pages/login";
 import SignupPage from "./pages/signup";
 import UserDetails from "./pages/UserDetails/UserDetails";
 import Parameters from "./pages/Parameters/Parameters";
+import LoginA from "./pages/loginA";
 
 import { TasksProvider } from "./pages/TasksContext";
 
@@ -38,12 +39,15 @@ export default function App() {
     <TasksProvider>
       <BrowserRouter>
         <Routes>
-          <Route index element={<Homepage />} />
+          <Route index element={<LoginA />} />
+          <Route path="signup" element={<SignupPage />} />
+          <Route path="Homepage" element={<Homepage />} />
           <Route path="DIO" element={<DIOhomepage />} />
           <Route path="CEOProfil" element={<CEOProfil />} />
           <Route path="ExecutionBoard" element={<ExecutionBoard />} />
           <Route path="Archives" element={<Archives />} />
           <Route path="login" element={<LoginPage />} />
+          <Route path="loginA" element={<LoginA />} />
           <Route path="signup" element={<SignupPage />} />
           <Route path="UserDetails" element={<UserDetails />} />
           <Route path="Parameters" element={<Parameters />} />
