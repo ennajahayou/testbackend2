@@ -2,9 +2,11 @@ import "../ExecutionBoard/ExecutionBoard.css";
 import { useState, useContext } from "react";
 import axios from "axios";
 import { TasksContext } from "../TasksContext";
-
+import useCountdown from "./useCountdown";
 import righthand from '../../images/icones/hand-right.png';
 import lefthand from '../../images/icones/hand-left.png';
+import { useEffect } from "react";
+
 
 const SelfReview = ({
   executionDescription,
@@ -14,6 +16,36 @@ const SelfReview = ({
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [difficulty, setDifficulty] = useState(0);
   const [workText, setWorkText] = useState("");
+  const [timeRemaining, setTimeRemaining] = useState('');
+  const { hours, minutes, seconds } = useCountdown(24);
+
+
+
+
+  /*useEffect(() => {
+    if (currentQuestion === 3) {
+      const endDate = new Date();
+      endDate.setHours(23);
+      endDate.setMinutes(59);
+      endDate.setSeconds(47);
+
+      const interval = setInterval(() => {
+        const now = new Date().getTime();
+        const timeLeft = endDate - now;
+
+        if (timeLeft > 0) {
+          const hours = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+          const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
+          const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
+
+          setTimeRemaining(`${hours}:${minutes}:${seconds}`);
+        } else {
+          clearInterval(interval);
+          // Code à exécuter une fois le compte à rebours terminé
+        }
+      }, 1000);
+    }
+  }, [currentQuestion]);*/
 
   const { addProposition } = useContext(TasksContext);
 
@@ -128,7 +160,7 @@ const SelfReview = ({
         <>
           <h1>CONGRATULATION!</h1>
           <p>You will see your thanks in</p>
-          <p>23:59:47</p>
+          <p>{`${hours}H:${minutes}Mn:${seconds}s`}</p>
           <div className="congratulations">
           <img className="lefthand" src={lefthand} />
           <button
