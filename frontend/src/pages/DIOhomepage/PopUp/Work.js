@@ -3,7 +3,6 @@ import { useState, useContext } from "react";
 import "../DIOhomepage.css";
 
 const SubmitionPopUp = ({
-  executionDescription,
   setShowPopUpWork,
   setIsCreatingExecution,
   setSelfReview,
@@ -13,8 +12,8 @@ const SubmitionPopUp = ({
 
   const handleClick = () => {
     setShowPopUpWork(false);
-    setIsCreatingExecution(true);
     setSelfReview(true);
+    setExecutionId(0);
   };
   const [workText, setWorkText] = useState("");
 

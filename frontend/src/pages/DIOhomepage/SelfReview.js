@@ -19,7 +19,7 @@ const SelfReview = ({
 
   const handleDifficultyClick = (index) => {
     setDifficulty(index);
-    setCurrentQuestion(2);
+    setCurrentQuestion(1);
   };
 
   const handleSubmit = (index) => {

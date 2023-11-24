@@ -129,13 +129,14 @@ const DIOhomepage = () => {
             <WorkDonePopUp
               setShowPopUpWorkDone={setShowPopUpWorkDone}
               setShowPopUpWork={setShowPopUpWork}
+              setExecutionId={setExecutionId}
             />
           )}
           {showPopUpWork && (
             <Work
               setShowPopUpWork={setShowPopUpWork}
-              setIsCreatingExecution={setIsCreatingExecution}
               setSelfReview={setCreationExecutionWorkAlreadyDone}
+              setExecutionId={setExecutionId}
             />
           )}
           {showPopUpAttribution && (

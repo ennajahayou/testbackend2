@@ -322,3 +322,31 @@ h1 {
 }
 
 
+.buttons-container {
+  position: relative;
+  bottom: 0px;
+  /* left: 170px; */
+  display: flex;
+  gap: 10px; /* Ajoutez un espace entre les boutons */
+}
+
+.task1 {
+  background-color: lightblue;
+  padding: 2px;
+  margin: 20px;
+  /* Ajout d'une bordure autour des tâches individuelles */
+  border-radius: 5px;
+  display: flex; /* Fait de .task un conteneur flex */
+  justify-content: space-between; /* Met de l'espace entre les éléments enfants */
+  align-items: center;
+}
+
+.statuss {
+  display: inline-block;
+  padding: 10px;
+  border-radius: 20px;
+  color: white;
+  background-color: #b9b9b9;
+  font-family: "Kumbh Sans";
+  margin-right: 10px;
+}

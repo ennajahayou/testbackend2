@@ -5,6 +5,7 @@ import "../DIOhomepage.css";
 const WorkDonePopUp = ({
   setShowPopUpWorkDone,
   setShowPopUpWork,
+  setExecutionId,
 }) => {
   // TODO: add real information in jsonData
 
@@ -16,6 +17,7 @@ const WorkDonePopUp = ({
 
   const handleClickAlreadyDone = () => {
     setShowPopUpWorkDone(false);
+    setExecutionId(0);
     setShowPopUpWork(true);
   };
 

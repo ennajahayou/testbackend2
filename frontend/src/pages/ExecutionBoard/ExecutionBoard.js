@@ -6,15 +6,21 @@ import PeerReview from "./PeerReview";
 import SelfReview from "./SelfReview";
 import axios from "axios";
 import ExecutionCards from "./ExecutionCards";
+import CEOReview from "../CEOProfil/CEOReview";
 
 import logo5 from "../../images/logo5.png";
 
 
 const ExecutionBoard = () => {
+  const dioId = 1;
   const [droppedTaskIndex, setDroppedTaskIndex] = useState(null);
   const [showEvaluation, setShowEvaluation] = useState(false); // Nouvel état
   const [myExecutions, setMyExecutions] = useState([]);
   const [executionsInReview, setExecutionsInReview] = useState([]);
+
+  const [finishedTasks, setFinishedTasks] = useState([]);
+  const [ceoReview, setCeoReview] = useState(false);
+  const [currentExecution, setCurrentExecution] = useState(null);
 
   useEffect(() => {
     axios
@@ -25,6 +31,15 @@ const ExecutionBoard = () => {
       )
       .then((res) => {
         setMyExecutions(res.data);
+      });
+      axios
+      .get(
+        process.env.REACT_APP_BACKEND_URL +
+          "/ceoprofil/executionFinished?dioId=" +
+          dioId
+      )
+      .then((res) => {
+        setFinishedTasks(res.data);
       });
 
     axios
@@ -65,7 +80,13 @@ const ExecutionBoard = () => {
   return (
     <div className="container1">
       <Sidebar/>
-      {showPeerReview ? (
+      
+      {ceoReview ? (
+        <CEOReview
+          executionId={currentExecution}
+          setShowEvaluation={setCeoReview}
+        />
+      ):showPeerReview ? (
         <PeerReview
           executionId={droppedTaskIndex}
           setShowPeerReview={setShowPeerReview}
@@ -119,12 +140,33 @@ const ExecutionBoard = () => {
                 </div>
               ))} */}
             </div>
-            <div className="executions DIO">
-              <h2 className="fini">Peer Reviews</h2>
               {localStorage.getItem("isCEO") === "1" ? (
-                <>You cannot make a peer review as a CEO</>
+                <div className="executions DIO">
+                <h2 className="fini">CEO Reviews</h2>
+              {finishedTasks.map((task, index) => (
+                <div className="task1" key={index}>
+                  {task.exec_description}
+                  <div className={`statuss`}>
+                    {task.status_.charAt(0).toUpperCase() +
+                      task.status_.slice(1)}
+                  </div>
+                  <div className="buttons-container">
+                    <button
+                      onClick={() => {
+                        setCeoReview(true);
+                        setCurrentExecution(task.id);
+                      }}
+                    >
+                      CEO Review
+                    </button>
+                  </div>
+                </div>
+              ))}
+                </div>
               ) : (
                 executionsInReview.map((task) => (
+                  <div className="executions DIO">
+                  <h2 className="fini">Peer Reviews</h2>
                   <div className="execution" key={task.id}>
                     {task.exec_description}
                     <div className="buttons-container">
@@ -147,9 +189,9 @@ const ExecutionBoard = () => {
                       )}
                     </div>
                   </div>
+                  </div>
                 ))
               )}
-            </div>
           </div>
         </div>
       )}
