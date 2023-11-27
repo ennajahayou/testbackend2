@@ -142,6 +142,7 @@ const ExecutionBoard = () => {
               {localStorage.getItem("isCEO") === "1" ? (
                 <div className="executions DIO">
                 <h2 className="fini">CEO Reviews</h2>
+              <div className="scroll">  
               {finishedTasks.map((task, index) => (
                 <div className="task1" key={index}>
                   {task.exec_description}
@@ -161,11 +162,13 @@ const ExecutionBoard = () => {
                   </div>
                 </div>
               ))}
+              </div>
                 </div>
               ) : (
-                executionsInReview.map((task) => (
-                  <div className="executions DIO">
-                  <h2 className="fini">Peer Reviews</h2>
+                <div className="executions DIO">
+                <h2 className="fini">Peer Reviews</h2>
+                <div className="scroll"> 
+                {executionsInReview.map((task) => (
                   <div className="execution" key={task.id}>
                     {task.exec_description}
                     <div className="buttons-container">
@@ -188,8 +191,9 @@ const ExecutionBoard = () => {
                       )}
                     </div>
                   </div>
+                  ))}
                   </div>
-                ))
+                  </div>
               )}
           </div>
         </div>

@@ -158,9 +158,9 @@ const SelfReview = ({
         </>
       ) : (     
         <>
-          <h1>CONGRATULATION!</h1>
+          <h1>CONGRATULATION !</h1>
           <p>You will see your thanks in</p>
-          <p>{`${hours}H:${minutes}Mn:${seconds}s`}</p>
+          <p>{`${hours}:${minutes}:${seconds}`}</p>
           <div className="congratulations">
           <img className="lefthand" src={lefthand} />
           <button
