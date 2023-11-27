@@ -55,8 +55,15 @@
   align-items: center;
   margin-left: 10%;
   color: black;
-  text-align: center;
   font-family: 'Kumbh Sans', sans-serif;
+  margin-top: 5%;
+}
+
+.execution .description{
+  margin-left: 7%;
+  font-family: 'Kumbh Sans', sans-serif;
+  font-size: x-large;
+
 }
 
 .executions .DIO {
@@ -141,6 +148,18 @@ h1 {
   bottom: 0px;
   left: 0px;
 }
+.buttons-container .deadline  {
+  margin-left: 50%;
+  font-size: 80%;
+}
+
+.buttons-container button {
+  background-color:  #DDC7C7;
+  margin-left: 5%;
+  margin-top: 3%;
+  height: 5vh;
+}
+
 
 .thanks-button {
   background-color: #ddc7c7;
