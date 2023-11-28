@@ -13,9 +13,11 @@ const SubmitionPopUp = ({
   return (
     <div className="submition-pop-up-work-ceo">
     <h2>My work</h2>
-    <div>
-    <span class="circle"></span>
-    <span class="circle"></span>
+    <div className="input-circle">
+    <div className="span">
+    <span class="circle"><div>Files</div></span>
+    <span class="circle"><div>Link</div></span>
+    </div>
     <input
       className="evaluation-textarea"
       placeholder="Commentaire..."
