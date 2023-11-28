@@ -21,7 +21,6 @@ const ExecutionBoard = () => {
   const [finishedTasks, setFinishedTasks] = useState([]);
   const [ceoReview, setCeoReview] = useState(false);
   const [currentExecution, setCurrentExecution] = useState(null);
-
   useEffect(() => {
     axios
       .get(
