@@ -32,3 +32,4 @@ const calculateDeadline = (index, difficultyValue) => {
 };
 
 module.exports = calculateDeadline;
+
