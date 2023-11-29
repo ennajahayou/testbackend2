@@ -26,8 +26,9 @@ router.post("/selfReview", function (req, res, next) {
   const connection = createConnection();
   const { userId, executionId, comment, difficulty, reactivity } = req.body;
 
-    // Utilisez la fonction pour calculer le délai
+  // Utilisez la fonction pour calculer le délai
   const departHours = calculateDeadline(reactivity, difficulty);
+
 
   const sql = `INSERT INTO review (id_execution, id_issuer, comments_, difficulty, reactivity) VALUES (?, ?, ?, ?, ?)`;
   connection.query(
@@ -39,7 +40,7 @@ router.post("/selfReview", function (req, res, next) {
         connection.close();
       }
 
-      res.send(rows, departHours);
+      res.send(res.send({ data: { rows, departHours } }));
 
       connection.close();
     }
