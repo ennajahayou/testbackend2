@@ -31,11 +31,13 @@ function Sidebar  () {
        <img src={message} />My feed
        </Link>
     </button>
+    {localStorage.getItem("isCEO") === "1" ? (
     <button className="sidebar-section">  
        <Link to="/CEOProfil">
        <img src={star}  />CEO Profile        
-       </Link>
+       </Link>       
     </button>
+    ) : (<button className="sidebar-section">  <img src={star}  />  CEO Profile  </button> )}
     <button className="sidebar-section">
        <Link to="/ExecutionBoard">
        <img src={story}  />Work Board
