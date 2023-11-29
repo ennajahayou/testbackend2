@@ -15,6 +15,7 @@ const useCountdown = (departHours = 24) => {
     // Si le temps initial n'est pas dans le stockage local, l'initialiser
       startTime = Date.now();
       localStorage.setItem('countdownStartTime', startTime);
+      
 
     const endTime = parseInt(startTime, 10) + departHours * 3600 * 1000;
   
