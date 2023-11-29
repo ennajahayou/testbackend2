@@ -7,6 +7,7 @@ import SelfReview from "./SelfReview";
 import axios from "axios";
 import ExecutionCards from "./ExecutionCards";
 import CEOReview from "../CEOProfil/CEOReview";
+import CEOreviewPopUp from "../DIOhomepage/PopUp/CEOreviewPopUp";
 
 import logo5 from "../../images/logo5.png";
 
@@ -17,6 +18,7 @@ const ExecutionBoard = () => {
   const [showEvaluation, setShowEvaluation] = useState(false); // Nouvel état
   const [myExecutions, setMyExecutions] = useState([]);
   const [executionsInReview, setExecutionsInReview] = useState([]);
+  const [showPopUpCEO, setShowPopUpCEO] = useState(false);
 
   const [finishedTasks, setFinishedTasks] = useState([]);
   const [ceoReview, setCeoReview] = useState(false);
@@ -142,30 +144,30 @@ const ExecutionBoard = () => {
               {localStorage.getItem("isCEO") === "1" ? (
                 <div className="executions DIO">
                 <h2 className="fini">CEO Reviews</h2>
+              <div className="scroll">  
               {finishedTasks.map((task, index) => (
-                <div className="task1" key={index}>
-                  {task.exec_description}
-                  <div className={`statuss`}>
-                    {task.status_.charAt(0).toUpperCase() +
-                      task.status_.slice(1)}
-                  </div>
+                <div className="execution" key={index}>
+                 <div className="description"> {task.exec_description}</div>
                   <div className="buttons-container">
                     <button
-                      onClick={() => {
-                        setCeoReview(true);
-                        setCurrentExecution(task.id);
-                      }}
+                      onClick={setShowPopUpCEO}
                     >
-                      CEO Review
+                      See
                     </button>
+                    <div className={`deadline`}>
+                    {"until 24/07/2023"}
+                  </div>
                   </div>
                 </div>
+
               ))}
+              </div>
                 </div>
               ) : (
-                executionsInReview.map((task) => (
-                  <div className="executions DIO">
-                  <h2 className="fini">Peer Reviews</h2>
+                <div className="executions DIO">
+                <h2 className="fini">Peer Reviews</h2>
+                <div className="scroll"> 
+                {executionsInReview.map((task) => (
                   <div className="execution" key={task.id}>
                     {task.exec_description}
                     <div className="buttons-container">
@@ -188,9 +190,17 @@ const ExecutionBoard = () => {
                       )}
                     </div>
                   </div>
+                  ))}
                   </div>
-                ))
+                  </div>
               )}
+            {showPopUpCEO && (
+            <CEOreviewPopUp
+            setShowPopUpCEO={setShowPopUpCEO}
+            setCEOReview={setCeoReview}
+            setExecutionId={setCurrentExecution}
+            />
+          )}
           </div>
         </div>
       )}

@@ -1,5 +1,5 @@
 import "./CEOProfil.css";
-import Sidebar from "../../Components/Sidebar";
+import Sidebar from "../../Components/SidebarDIO";
 import CEOReview from "./CEOReview";
 import { useState, useEffect, useContext } from "react";
 import axios from "axios";
@@ -26,6 +26,7 @@ const CEOProfil = () => {
       )
       .then((res) => {
         setTasksInProgress(res.data);
+        console.log(res.data);
       });
     axios
       .get(
@@ -35,6 +36,7 @@ const CEOProfil = () => {
       )
       .then((res) => {
         setFinishedTasks(res.data);
+        console.log(res.data);
       });
   }, []);
 
@@ -95,6 +97,7 @@ const CEOProfil = () => {
           <div className="tasks-container">
             <div className="tasks in-progress">
               <h2>In Progress</h2>
+              <div className="scroll">
               {tasksInProgress.map((task, index) => (
                 <div className="task" key={index}>
                   <div>
@@ -117,10 +120,12 @@ const CEOProfil = () => {
                   </div>
                 </div>
               ))}
+              </div>
             </div>
 
             <div className="tasks finished">
               <h2 className="fini">Finished</h2>
+              <div className="scroll">
               {finishedTasks.map((task, index) => (
                 <div className="task1" key={index}>
                   {task.exec_description}
@@ -140,6 +145,7 @@ const CEOProfil = () => {
                   </div>
                 </div>
               ))}
+              </div>
             </div>
           </div>
         </div>

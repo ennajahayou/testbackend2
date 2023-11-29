@@ -17,7 +17,6 @@ const WorkDonePopUp = ({
 
   const handleClickAlreadyDone = () => {
     setShowPopUpWorkDone(false);
-    setExecutionId(0);
     setShowPopUpWork(true);
   };
 

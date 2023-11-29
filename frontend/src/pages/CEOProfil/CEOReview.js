@@ -1,6 +1,8 @@
 import "../ExecutionBoard/ExecutionBoard.css";
 import { useState } from "react";
 import axios from "axios";
+import righthand from '../../images/icones/hand-right.png';
+import lefthand from '../../images/icones/hand-left.png';
 
 const CEOReview = ({ executionId, setShowEvaluation }) => {
   const [currentQuestion, setCurrentQuestion] = useState(0);
@@ -90,16 +92,18 @@ const CEOReview = ({ executionId, setShowEvaluation }) => {
         </>
       ) : (
         <>
-          <h1>CONGRATULATION!</h1>
-          <p>You will see your thanks in</p>
-          <p>23:59:47</p>
+          <h1>Thank you for your evaluation!</h1>
+          <div className="congratulations">
+          <img className="lefthand" src={lefthand} />
           <button
-            className="evaluation-button"
+            className="backtofeed-button"
             onClick={() => window.location.reload()}
             //setShowEvaluation(false)}
           >
-            Next
+            Back to Fedd
           </button>
+          <img className="righthand" src={righthand} />
+          </div>
         </>
       )}
     </div>
