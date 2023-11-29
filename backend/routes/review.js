@@ -41,6 +41,8 @@ router.post("/selfReview", function (req, res, next) {
       }
 
       res.send({ data: { rows, departHours } });
+      
+
 
       connection.close();
     }
