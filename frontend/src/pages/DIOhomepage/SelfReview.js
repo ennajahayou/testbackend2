@@ -78,8 +78,7 @@ const SelfReview = ({
           dataReview
         )
         .then((res) => {
-          const newDepartHours = res.departHours;
-          console.log(res);
+          const newDepartHours = res.data.departHours;
           handleDepartHours1(newDepartHours);
           setCurrentQuestion(3);
         });
@@ -115,8 +114,7 @@ const SelfReview = ({
               dataReview
             )
             .then((res) => {
-              const newDepartHours = res.departHours;
-              console.log(res);
+              const newDepartHours = res.data.departHours;
               handleDepartHours1(newDepartHours);
               setCurrentQuestion(3);
             }
