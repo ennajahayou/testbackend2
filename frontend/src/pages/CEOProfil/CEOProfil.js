@@ -26,6 +26,7 @@ const CEOProfil = () => {
       )
       .then((res) => {
         setTasksInProgress(res.data);
+        console.log(res.data);
       });
     axios
       .get(
@@ -35,6 +36,7 @@ const CEOProfil = () => {
       )
       .then((res) => {
         setFinishedTasks(res.data);
+        console.log(res.data);
       });
   }, []);
 

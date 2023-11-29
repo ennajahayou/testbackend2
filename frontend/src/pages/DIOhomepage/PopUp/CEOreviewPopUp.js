@@ -2,11 +2,26 @@ import axios from "axios";
 import { useState, useContext } from "react";
 import "../DIOhomepage.css";
 
-const SubmitionPopUp = ({
+const CEOreviewPopUp = ({
+  setShowPopUpCEO,
+  setCEOReview,
+  setExecutionId,
 
 }) => {
   // TODO: add real information in jsonData
+  const handleClickNotYet = () => {
+    setShowPopUpCEO(false);
+  };
 
+  const handleClickClose = () => {
+    setShowPopUpCEO(false);
+  };
+
+  const handleClickEvaluate = () => {
+    setShowPopUpCEO(false);
+    setCEOReview(true);
+    setExecutionId(0);
+  };
 
 
 
@@ -15,8 +30,8 @@ const SubmitionPopUp = ({
     <h2>My work</h2>
     <div className="input-circle">
     <div className="span">
-    <span class="circle"><div>Files</div></span>
-    <span class="circle"><div>Link</div></span>
+    <div className="files"><span class="circle"></span><div className="span-text">Files 1</div></div>
+    <div className="files"><span class="circle"></span><div className="span-text">Link</div></div>
     </div>
     <input
       className="evaluation-textarea"
@@ -26,16 +41,19 @@ const SubmitionPopUp = ({
     <div className="container-button-ceo">
     <button
       className="button1"
+      onClick={handleClickNotYet}
     >     
       Not yet
     </button>
     <button
       className="button2"
+      onClick={handleClickClose}
     >     
       Close
     </button>
     <button
       className="button3"
+      onClick={handleClickEvaluate}
     >     
       Evaluate it
     </button>
@@ -44,4 +62,4 @@ const SubmitionPopUp = ({
   );
 };
 
-export default SubmitionPopUp;
+export default CEOreviewPopUp;

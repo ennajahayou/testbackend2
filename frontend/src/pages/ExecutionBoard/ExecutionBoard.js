@@ -195,7 +195,11 @@ const ExecutionBoard = () => {
                   </div>
               )}
             {showPopUpCEO && (
-            <CEOreviewPopUp/>
+            <CEOreviewPopUp
+            setShowPopUpCEO={setShowPopUpCEO}
+            setCEOReview={setCeoReview}
+            setExecutionId={setCurrentExecution}
+            />
           )}
           </div>
         </div>
