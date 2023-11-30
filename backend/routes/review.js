@@ -2,6 +2,7 @@ var express = require("express");
 var router = express.Router();
 const createConnection = require("../dataBaseConnection");
 const calculateDeadline = require("./deadlineCalculations");
+var fs = require("fs");
 
 /* GET the text of a review. */
 router.get("/:executionId", function (req, res, next) {
@@ -22,12 +23,18 @@ router.get("/:executionId", function (req, res, next) {
 });
 
 /* Add a review. */
-router.post("/selfReview", function (req, res, next) {
+router.post("/selfReview", async (req, res, next) => {
   const connection = createConnection();
   const { userId, executionId, comment, difficulty, reactivity } = req.body;
+  var parameters = JSON.parse(fs.readFileSync("parameters.json", "utf8"));
+  const ED = parameters.autoEvaluation.difficulty[difficulty];
+  const ER = parameters.autoEvaluation.reactivity[reactivity];
 
-  // Utilisez la fonction pour calculer le délai
-  const departHours = calculateDeadline(reactivity, difficulty);
+  const responseValue = (ED === 1 && ER === 1) || (ED === 1 && ER === 4) || (ED === 4 && ER === 1)
+  ? 1
+  : await calculateDeadline(reactivity, difficulty);
+
+  
 
 
   const sql = `INSERT INTO review (id_execution, id_issuer, comments_, difficulty, reactivity) VALUES (?, ?, ?, ?, ?)`;
@@ -40,7 +47,10 @@ router.post("/selfReview", function (req, res, next) {
         connection.close();
       }
 
-      res.send({ data: { rows, departHours } });
+      // Envoyez la réponse au frontend
+      res.send({ data: { rows, responseValue } });
+      
+
 
       connection.close();
     }

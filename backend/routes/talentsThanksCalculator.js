@@ -17,7 +17,7 @@ var fs = require("fs");
 //   [1, 10, 25, 50],
 // ];
 
-const thanksCalculator = async (executionId, scenario) => {
+const talentsThanksCalculator = async (executionId, scenario) => {
   var parameters = JSON.parse(fs.readFileSync("parameters.json", "utf8"));
 
   // Get self review from database
@@ -41,34 +41,45 @@ const thanksCalculator = async (executionId, scenario) => {
   // const thanksFromSelfReview =
   //   ed_evaluations_descriptions[scenario][selfReview[0].difficulty] *
   //   er_evaluations_descriptions[scenario][selfReview[0].reactivity];
+ 
+  const thanksFromPeerReviews =
+    peerReview.length > 0
+      ? peerReview.reduce((sum, review) => {
+          return (
+            sum +
+            parameters.peerReview.result[review.expectations] *
+              parameters.peerReview.reactivity[review.reactivity]
+              // ed_evaluations_descriptions[scenario][review.respect] *
+              // er_evaluations_descriptions[scenario][review.expectations]
+          );
+        }, 0) / peerReview.length
+      : 0;
 
+      
   const thanksFromCeoReview =
     parameters.CEOReview.result[ceoReview[0].expectations] *
     parameters.CEOReview.reactivity[ceoReview[0].reactivity];
   // ed_evaluations_descriptions[scenario][ceoReview[0].expectations] *
   // er_evaluations_descriptions[scenario][ceoReview[0].reactivity];
 
-  const thanksFromPeerReviews =
-    peerReview.reduce((sum, review) => {
-      return (
-        sum +
-        parameters.peerReview.result[review.expectations] *
-          parameters.peerReview.reactivity[review.reactivity]
-        // ed_evaluations_descriptions[scenario][review.respect] *
-        //   er_evaluations_descriptions[scenario][review.expectations]
-      );
-    }, 0) / peerReview.length;
+
 
   console.log({
     thanksFromSelfReview,
     thanksFromCeoReview,
     thanksFromPeerReviews,
   });
+    
+    if (thanksFromPeerReviews !== 0 || thanksFromCeoReview !== 0){
+      const thanks =
+      parameters.scoreWeight.autoEvaluation * thanksFromSelfReview +
+      parameters.scoreWeight.peerReview * thanksFromPeerReviews +
+      parameters.scoreWeight.CEOReview * thanksFromCeoReview;
+    }else{
+      const thanks = 1;
 
-  const thanks =
-    parameters.scoreWeight.autoEvaluation * thanksFromSelfReview +
-    parameters.scoreWeight.peerReview * thanksFromPeerReviews +
-    parameters.scoreWeight.CEOReview * thanksFromCeoReview;
+    }
+  
   // autoEvaluationScoreWeight[scenario] * thanksFromSelfReview +
   // CEOEvaluationScoreWeight[scenario] * thanksFromCeoReview +
   // PeerReviewScoreWeight[scenario] * thanksFromPeerReviews;
@@ -97,4 +108,5 @@ const executeSQLRequest = async (sql, params) => {
 // const executionId = 50;
 // thanksCalculator(executionId, 2);
 
-module.exports = thanksCalculator;
+module.exports = talentsThanksCalculator;
+  ;
