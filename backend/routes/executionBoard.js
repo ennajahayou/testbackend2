@@ -1,7 +1,7 @@
 var express = require("express");
 var router = express.Router();
 const createConnection = require("../dataBaseConnection");
-const thanksCalculator = require("./thanksCalculator");
+const thanksCalculator = require("./talentsThanksCalculator");
 
 /* Determine if an execution has a review, a peer review and a CEO review. */
 const has3review = (id_execution) => {

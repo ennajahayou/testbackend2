@@ -19,22 +19,24 @@ var fs = require("fs");
 
 const talentsThanksCalculator = async (executionId, scenario) => {
   var parameters = JSON.parse(fs.readFileSync("parameters.json", "utf8"));
-
+  
   // Get self review from database
 
   const sqlSelfReview = `SELECT * FROM review WHERE id_execution = ?`;
   const sqlPeerReview = `SELECT * FROM peer_review WHERE id_execution = ?`;
   const sqlCeoReview = `SELECT * FROM ceo_review WHERE id_execution = ?`;
+  const sqlIsExCP = 'SELECT EXISTS (SELECT 1 FROM review JOIN execution ON review.id_execution = execution.id WHERE review.id_issuer = execution.id_talent AND execution.id = ?) AS match_found;'
 
-  const [selfReview, peerReview, ceoReview] = await Promise.all([
+  const [selfReview, peerReview, ceoReview,IsExCP] = await Promise.all([
     executeSQLRequest(sqlSelfReview, [executionId]),
     executeSQLRequest(sqlPeerReview, [executionId]),
     executeSQLRequest(sqlCeoReview, [executionId]),
+    executeSQLRequest(sqlIsExCP, [executionId]),
   ]);
 
   console.log({ selfReview, peerReview, ceoReview });
 
-  const thanksFromSelfReview =
+  const scoreFromSelfReview =
     parameters.autoEvaluation.difficulty[selfReview[0].difficulty] *
     parameters.autoEvaluation.reactivity[selfReview[0].reactivity];
 
@@ -42,7 +44,7 @@ const talentsThanksCalculator = async (executionId, scenario) => {
   //   ed_evaluations_descriptions[scenario][selfReview[0].difficulty] *
   //   er_evaluations_descriptions[scenario][selfReview[0].reactivity];
  
-  const thanksFromPeerReviews =
+  const scoreFromPeerReviews =
     peerReview.length > 0
       ? peerReview.reduce((sum, review) => {
           return (
@@ -56,29 +58,31 @@ const talentsThanksCalculator = async (executionId, scenario) => {
       : 0;
 
       
-  const thanksFromCeoReview =
+  const scoreFromCeoReview =
     parameters.CEOReview.result[ceoReview[0].expectations] *
     parameters.CEOReview.reactivity[ceoReview[0].reactivity];
   // ed_evaluations_descriptions[scenario][ceoReview[0].expectations] *
   // er_evaluations_descriptions[scenario][ceoReview[0].reactivity];
 
-
-
   console.log({
-    thanksFromSelfReview,
-    thanksFromCeoReview,
-    thanksFromPeerReviews,
+    scoreFromSelfReview,
+    scoreFromCeoReview,
+    scoreFromPeerReviews,
   });
-    
-    if (thanksFromPeerReviews !== 0 || thanksFromCeoReview !== 0){
-      const thanks =
-      parameters.scoreWeight.autoEvaluation * thanksFromSelfReview +
-      parameters.scoreWeight.peerReview * thanksFromPeerReviews +
-      parameters.scoreWeight.CEOReview * thanksFromCeoReview;
-    }else{
-      const thanks = 1;
 
-    }
+  let thanks =
+  parameters.scoreWeight.autoEvaluation * scoreFromSelfReview +
+  parameters.scoreWeight.peerReview * scoreFromPeerReviews +
+  parameters.scoreWeight.CEOReview * scoreFromCeoReview;
+
+  if (IsExCP) {
+    const ExC = 0.1;
+    const ExCP = 0.05;
+    thanks *= (1 + ExC + ExCP);
+ }
+
+// Vous pouvez maintenant utiliser thanks à l'extérieur de la condition if, et sa valeur pourrait avoir été modifiée à l'intérieur de la condition if.
+
   
   // autoEvaluationScoreWeight[scenario] * thanksFromSelfReview +
   // CEOEvaluationScoreWeight[scenario] * thanksFromCeoReview +
