@@ -29,10 +29,13 @@ router.post("/selfReview", async (req, res, next) => {
   var parameters = JSON.parse(fs.readFileSync("parameters.json", "utf8"));
   const ED = parameters.autoEvaluation.difficulty[difficulty];
   const ER = parameters.autoEvaluation.reactivity[reactivity];
+  const ExC = 0.1;
+  const ExCP = 0.05;
 
   const responseValue = (ED === 1 && ER === 1) || (ED === 1 && ER === 4) || (ED === 4 && ER === 1)
-  ? 1
+  ? (ED * ER) * (1 + ExC + ExCP)
   : await calculateDeadline(reactivity, difficulty);
+
 
   
 
