@@ -1,112 +1,67 @@
-const createConnection = require("../dataBaseConnection");
+const executeSQLRequest = require("./database");
 var fs = require("fs");
 
-// const autoEvaluationScoreWeight = [0.34, 0.5, 0.25];
-// const PeerReviewScoreWeight = [0.33, 0.25, 0.5];
-// const CEOEvaluationScoreWeight = [0.33, 0.25, 0.25];
 
-// const ed_evaluations_descriptions = [
-//   [1, 4, 10, 20],
-//   [1, 7, 12, 30],
-//   [1, 10, 25, 50],
-// ];
+const talentsThanksCalculator = async (executionId) => {
+  const parameters = JSON.parse(fs.readFileSync("parameters.json", "utf8"));
 
-// const er_evaluations_descriptions = [
-//   [1, 4, 10, 20],
-//   [1, 7, 12, 30],
-//   [1, 10, 25, 50],
-// ];
-
-const talentsThanksCalculator = async (executionId, scenario) => {
-  var parameters = JSON.parse(fs.readFileSync("parameters.json", "utf8"));
-
-  // Get self review from database
-
-  const sqlSelfReview = `SELECT * FROM review WHERE id_execution = ?`;
-  const sqlPeerReview = `SELECT * FROM peer_review WHERE id_execution = ?`;
-  const sqlCeoReview = `SELECT * FROM ceo_review WHERE id_execution = ?`;
-
-  const [selfReview, peerReview, ceoReview] = await Promise.all([
-    executeSQLRequest(sqlSelfReview, [executionId]),
-    executeSQLRequest(sqlPeerReview, [executionId]),
-    executeSQLRequest(sqlCeoReview, [executionId]),
+  const [
+    selfReview,
+    peerReview,
+    ceoReview,
+    isExCP,
+  ] = await Promise.all([
+    executeSQLRequest(`SELECT * FROM review WHERE id_execution = ?`, [executionId]),
+    executeSQLRequest(`SELECT * FROM peer_review WHERE id_execution = ?`, [executionId]),
+    executeSQLRequest(`SELECT * FROM ceo_review WHERE id_execution = ?`, [executionId]),
+    executeSQLRequest(`SELECT EXISTS (SELECT 1 FROM review JOIN execution ON review.id_execution = execution.id WHERE review.id_issuer = execution.id_talent AND execution.id = ?) AS match_found;`, [executionId]),
   ]);
 
-  console.log({ selfReview, peerReview, ceoReview });
-
-  const thanksFromSelfReview =
+  const scoreFromSelfReview =
     parameters.autoEvaluation.difficulty[selfReview[0].difficulty] *
     parameters.autoEvaluation.reactivity[selfReview[0].reactivity];
 
-  // const thanksFromSelfReview =
-  //   ed_evaluations_descriptions[scenario][selfReview[0].difficulty] *
-  //   er_evaluations_descriptions[scenario][selfReview[0].reactivity];
- 
-  const thanksFromPeerReviews =
+  const scoreFromPeerReviews =
     peerReview.length > 0
       ? peerReview.reduce((sum, review) => {
           return (
             sum +
             parameters.peerReview.result[review.expectations] *
               parameters.peerReview.reactivity[review.reactivity]
-              // ed_evaluations_descriptions[scenario][review.respect] *
-              // er_evaluations_descriptions[scenario][review.expectations]
           );
         }, 0) / peerReview.length
       : 0;
 
-      
-  const thanksFromCeoReview =
+  const scoreFromCeoReview =
     parameters.CEOReview.result[ceoReview[0].expectations] *
     parameters.CEOReview.reactivity[ceoReview[0].reactivity];
-  // ed_evaluations_descriptions[scenario][ceoReview[0].expectations] *
-  // er_evaluations_descriptions[scenario][ceoReview[0].reactivity];
 
+  let thanks = parameters.scoreWeight.autoEvaluation * scoreFromSelfReview;
 
+  if (scoreFromPeerReviews !== 0 && scoreFromCeoReview === 0) {
+    thanks += (scoreFromPeerReviews * (parameters.scoreWeight.peerReview + parameters.scoreWeight.CEOReview));
+  } else if (scoreFromPeerReviews === 0 && scoreFromCeoReview !== 0) {
+    thanks += (scoreFromCeoReview * (parameters.scoreWeight.peerReview + parameters.scoreWeight.CEOReview));
+  } else {
+    thanks += ((parameters.scoreWeight.peerReview * scoreFromPeerReviews) + (parameters.scoreWeight.CEOReview * scoreFromCeoReview));
+  }
 
-  console.log({
-    thanksFromSelfReview,
-    thanksFromCeoReview,
-    thanksFromPeerReviews,
-  });
-    
-    if (thanksFromPeerReviews !== 0 || thanksFromCeoReview !== 0){
-      const thanks =
-      parameters.scoreWeight.autoEvaluation * thanksFromSelfReview +
-      parameters.scoreWeight.peerReview * thanksFromPeerReviews +
-      parameters.scoreWeight.CEOReview * thanksFromCeoReview;
-    }else{
-      const thanks = 1;
-
-    }
-  
-  // autoEvaluationScoreWeight[scenario] * thanksFromSelfReview +
-  // CEOEvaluationScoreWeight[scenario] * thanksFromCeoReview +
-  // PeerReviewScoreWeight[scenario] * thanksFromPeerReviews;
+  if (isExCP) {
+    const ExC = 0.1;
+    const ExCP = 0.05;
+    thanks *= (1 + ExC + ExCP);
+  }
 
   console.log({ thanks });
 
-  return thanks;
+  try {
+    // Mettre à jour la colonne thanks dans la table users
+    await executeSQLRequest(`UPDATE users SET thanks = ? WHERE id = ?;`, [thanks, selfReview[0].id_issuer]);
+  } catch (error) {
+    console.error("Erreur lors de la mise à jour de la base de données :", error);
+  } 
+
+  //return thanks;
 };
-
-const executeSQLRequest = async (sql, params) => {
-  const connection = createConnection();
-
-  const res = new Promise((resolve, reject) => {
-    connection.query(sql, params, (err, rows) => {
-      connection.close();
-      if (err) {
-        reject(err);
-      }
-      resolve(rows);
-    });
-  });
-
-  return res;
-};
-
-// const executionId = 50;
-// thanksCalculator(executionId, 2);
 
 module.exports = talentsThanksCalculator;
-  ;
