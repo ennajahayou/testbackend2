@@ -1,9 +1,9 @@
-var express = require("express");
-var router = express.Router();
+let express = require("express");
+let router = express.Router();
 const executeSQLRequest = require("./database");
 const startCountdown = require('./countdownTrigger');
 const calculateDeadline = require("./deadlineCalculations");
-var fs = require("fs");
+let fs = require("fs");
 
 
 /* GET the text of a review. */
@@ -49,7 +49,8 @@ router.post("/selfReview", async (req, res, next) => {
   if (responseValue === 24 || responseValue === 48 || responseValue === 72) {
       startCountdown(responseValue, executionId);
   }else{
-      executeSQLRequest(`UPDATE users SET thanks = ? WHERE id = ?;`, [responseValue, userId]);
+    executeSQLRequest(`UPDATE users SET thanks = thanks + ? WHERE id = ?;`, [Math.ceil(responseValue), userId]);
+
   }
 
 });

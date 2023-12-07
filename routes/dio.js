@@ -42,8 +42,8 @@ router.get("/execution", function (req, res, next) {
   const sql = `SELECT execution.id, execution.exec_description, users.user_name AS talent_name, execution.status_, execution.deadline
                 FROM execution 
                 JOIN users ON execution.id_talent = users.id 
-                WHERE execution.id_dio = ? AND ceo_validated = 1
-                ORDER BY execution.last_updated DESC`;
+                WHERE execution.id_dio = ? 
+                ORDER BY execution.last_updated DESC`;         //AND ceo_validated = 1
   connection.query(sql, [dioId], (err, rows) => {
     if (err) {
       console.log(err);
