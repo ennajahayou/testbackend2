@@ -4,12 +4,12 @@ const router = express.Router();
 const executeSQLRequest = require('./database');
 
 // Route pour récupérer le nombre total de thanks pour un utilisateur
-router.get('/getthanks/:userId', async (req, res) => {
+router.get('/:userId', async (req, res) => {
   const userId = req.params.userId;
 
   try {
     const result = await executeSQLRequest('SELECT thanks FROM users WHERE id = ?', [userId]);
-    const totalThanks = result[0].thanks || 0; // Assurez-vous que la colonne s'appelle "thanks"
+    const totalThanks = result[0].thanks; // Assurez-vous que la colonne s'appelle "thanks"
 
     res.json({ totalThanks });
   } catch (error) {

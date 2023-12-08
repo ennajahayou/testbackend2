@@ -31,10 +31,16 @@ const talentsThanksCalculator = async (executionId) => {
           );
         }, 0) / peerReview.length
       : 0;
-
-  const scoreFromCeoReview =
-    parameters.CEOReview.result[ceoReview[0].expectations] *
-    parameters.CEOReview.reactivity[ceoReview[0].reactivity];
+  
+  const scoreFromCeoReview = 0;
+  if (ceoReview.length > 0) {
+    
+    scoreFromCeoReview =
+      parameters.CEOReview.result[ceoReview[0].expectations] *
+      parameters.CEOReview.reactivity[ceoReview[0].reactivity];
+  
+  } 
+  
 
   let thanks = parameters.scoreWeight.autoEvaluation * scoreFromSelfReview;
 
@@ -42,7 +48,10 @@ const talentsThanksCalculator = async (executionId) => {
     thanks += (scoreFromPeerReviews * (parameters.scoreWeight.peerReview + parameters.scoreWeight.CEOReview));
   } else if (scoreFromPeerReviews === 0 && scoreFromCeoReview !== 0) {
     thanks += (scoreFromCeoReview * (parameters.scoreWeight.peerReview + parameters.scoreWeight.CEOReview));
-  } else {
+  } else if (scoreFromPeerReviews === 0 && scoreFromCeoReview === 0){
+    thanks = scoreFromSelfReview;
+    
+  }else{
     thanks += ((parameters.scoreWeight.peerReview * scoreFromPeerReviews) + (parameters.scoreWeight.CEOReview * scoreFromCeoReview));
   }
 
@@ -56,12 +65,12 @@ const talentsThanksCalculator = async (executionId) => {
 
   try {
     // Mettre à jour la colonne thanks dans la table users
-    await executeSQLRequest(`UPDATE users SET thanks = ? WHERE id = ?;`, [thanks, selfReview[0].id_issuer]);
+    await executeSQLRequest(`UPDATE users SET thanks = thanks + ? WHERE id = ?;`, [Math.ceil(thanks), selfReview[0].id_issuer]);
   } catch (error) {
     console.error("Erreur lors de la mise à jour de la base de données :", error);
   } 
 
-  //return thanks;
+  //return thanks; 
 };
 
 module.exports = talentsThanksCalculator;

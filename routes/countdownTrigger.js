@@ -2,6 +2,7 @@
 const talentsThanksCalculator = require('./talentsThanksCalculator');
 
 const startCountdown = (hours, executionId) => {
+    
     const durationInMilliseconds = hours * 3600 * 1000;
   
     setTimeout(() => {
