@@ -60,7 +60,7 @@ router.post("/", function (req, res, next) {
 
 /* Add an execution with the work already done */
 router.post("/workDone", function (req, res, next) {
-  const { userId, executionDescription, dioId, texte } = req.body;
+  const { userId, executionDescription, dioId, texte,status } = req.body;
   const connection = createConnection();
   const sqlGetCEO = `SELECT id_ceo FROM dio WHERE id = ?`;
 
@@ -84,7 +84,7 @@ router.post("/workDone", function (req, res, next) {
           userId,
           userId,
           dioId,
-          "In review",
+          status,
           ceoId == userId,
           texte,
         ],
@@ -133,13 +133,14 @@ router.post("/setInReview", function (req, res, next) {
   const executionId = req.body.executionId;
   const userId = req.body.userId;
   const execContent = req.body.execContent;
+  const status = req.body.statut;
 
   const connection = createConnection();
   sql = `UPDATE execution SET status_ = ?, id_talent = ?, exec_content = ? WHERE id = ?`;
 
   connection.query(
     sql,
-    ["In review", userId, execContent, executionId],
+    [status, userId, execContent, executionId],
     (err) => {
       if (err) {
         res.status(500);
@@ -150,5 +151,28 @@ router.post("/setInReview", function (req, res, next) {
     }
   );
 });
+
+router.post("/updateStatus", function (req, res, next) {
+  const executionId = req.body.executionId;
+  const status = req.body.updatedStatut;
+
+  const connection = createConnection();
+  sql = `UPDATE execution SET status_ = ? WHERE id = ?`;
+
+  connection.query(
+    sql,
+    [status,  executionId],
+    (err) => {
+      if (err) {
+        res.status(500);
+      } else {
+        res.status(200).send("Execution in review");
+      }
+      connection.close();
+    }
+  );
+});
+
+
 
 module.exports = router;

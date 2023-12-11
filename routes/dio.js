@@ -36,21 +36,46 @@ router.post("/", function (req, res, next) {
 
 /* GET dio list of execution of a DIO. */
 router.get("/execution", function (req, res, next) {
-  dioId = req.query.dioId;
-
+  const dioId = req.query.dioId;
   const connection = createConnection();
-  const sql = `SELECT execution.id, execution.exec_description, users.user_name AS talent_name, execution.status_, execution.deadline
-                FROM execution 
-                JOIN users ON execution.id_talent = users.id 
-                WHERE execution.id_dio = ? 
-                ORDER BY execution.last_updated DESC`;         //AND ceo_validated = 1
+
+  connection.query(
+    `SELECT execution.id, execution.exec_description, users.user_name AS talent_name, execution.status_, execution.deadline, review.id_execution, review.comments_, review.difficulty, review.reactivity
+    FROM execution 
+    JOIN users ON execution.id_talent = users.id 
+    LEFT JOIN review ON review.id_execution = execution.id
+    WHERE execution.id_dio = ? 
+    ORDER BY execution.last_updated DESC`,
+    [dioId],
+    (error, results) => {
+      if (error) {
+        console.error("Error in query:", error);
+        return res.status(500).send("Error in database operation.");
+      }
+
+      // Process results as needed
+      res.json({ combinedData: results });
+
+      // Close the connection when finished processing queries
+      connection.end();
+    }
+  );
+});
+
+
+
+router.get("/selfreview", function (req, res, next) {
+  dioId = req.query.dioId;
+  const connection = createConnection();
+  const sql = `SELECT review.id_execution, review.comments_, review.difficulty, review.reactivity
+                FROM review
+                JOIN execution ON  review.id_execution= execution.id `;         //AND ceo_validated = 1
   connection.query(sql, [dioId], (err, rows) => {
     if (err) {
       console.log(err);
       connection.close();
     }
     res.send(rows);
-
     connection.close();
   });
 });
@@ -72,5 +97,6 @@ router.post("/addUser", function (req, res, next) {
     connection.close();
   });
 });
+
 
 module.exports = router;
