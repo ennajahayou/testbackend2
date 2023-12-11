@@ -17,6 +17,7 @@ var reviewRouter = require("./routes/review");
 var loginRouter = require("./routes/backLogin");
 var userdetailsRouter = require("./routes/usersdetails");
 var parmetersRouter = require("./routes/parameters");
+let getThanksRouter = require("./routes/getthanks");
 
 var app = express();
 
@@ -42,6 +43,7 @@ app.use("/review", reviewRouter);
 app.use("/login", loginRouter);
 app.use("/usersdetails", userdetailsRouter);
 app.use("/parameters", parmetersRouter);
+app.use("/thanks", getThanksRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
