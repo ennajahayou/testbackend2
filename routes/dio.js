@@ -40,12 +40,32 @@ router.get("/execution", function (req, res, next) {
   const connection = createConnection();
 
   connection.query(
-    `SELECT execution.id, execution.exec_description, users.user_name AS talent_name, execution.status_, execution.deadline, review.id_execution, review.comments_, review.difficulty, review.reactivity
-    FROM execution 
-    JOIN users ON execution.id_talent = users.id 
-    LEFT JOIN review ON review.id_execution = execution.id
-    WHERE execution.id_dio = ? 
-    ORDER BY execution.last_updated DESC`,
+    `SELECT 
+    execution.id, 
+    execution.exec_description, 
+    users.user_name AS talent_name, 
+    execution.status_, 
+    execution.deadline, 
+    review.id_execution, 
+    review.comments_ AS review_comments, 
+    review.difficulty, 
+    review.reactivity AS review_reactivity,
+    ceo_review.comments AS ceo_comments,
+    ceo_review.expectations,
+    ceo_review.reactivity AS ceo_reactivity
+FROM 
+    execution 
+JOIN 
+    users ON execution.id_talent = users.id 
+LEFT JOIN 
+    review ON review.id_execution = execution.id
+LEFT JOIN 
+    ceo_review ON ceo_review.id_execution = execution.id
+WHERE 
+    execution.id_dio = ? 
+ORDER BY 
+    execution.last_updated DESC
+`,
     [dioId],
     (error, results) => {
       if (error) {

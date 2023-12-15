@@ -1,4 +1,5 @@
 const executeSQLRequest = require("./database");
+const dioDailyThanks = require("./dioDailyThanks");
 var fs = require("fs");
 
 
@@ -16,6 +17,12 @@ const talentsThanksCalculator = async (executionId) => {
     executeSQLRequest(`SELECT * FROM ceo_review WHERE id_execution = ?`, [executionId]),
     executeSQLRequest(`SELECT EXISTS (SELECT 1 FROM review JOIN execution ON review.id_execution = execution.id WHERE review.id_issuer = execution.id_talent AND execution.id = ?) AS match_found;`, [executionId]),
   ]);
+  
+  //const rows = await executeSQLRequest(`SELECT id, id_ceo FROM dio WHERE id_execution = ?`, [executionId]);
+  //const dio_id = rows[0].id;
+  //const ceo_id = rows[0].id_ceo;
+
+
 
   const scoreFromSelfReview =
     parameters.autoEvaluation.difficulty[selfReview[0].difficulty] *
@@ -32,7 +39,8 @@ const talentsThanksCalculator = async (executionId) => {
         }, 0) / peerReview.length
       : 0;
   
-  const scoreFromCeoReview = 0;
+  let scoreFromCeoReview = 0;
+  
   if (ceoReview.length > 0) {
     
     scoreFromCeoReview =
@@ -66,6 +74,9 @@ const talentsThanksCalculator = async (executionId) => {
   try {
     // Mettre à jour la colonne thanks dans la table users
     await executeSQLRequest(`UPDATE users SET thanks = thanks + ? WHERE id = ?;`, [Math.ceil(thanks), selfReview[0].id_issuer]);
+    // insertion des thanks dans la table DailyThanks
+    await dioDailyThanks(Math.ceil(thanks), 1, 1);
+
   } catch (error) {
     console.error("Erreur lors de la mise à jour de la base de données :", error);
   } 

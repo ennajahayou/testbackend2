@@ -3,6 +3,7 @@ let router = express.Router();
 const executeSQLRequest = require("./database");
 const startCountdown = require('./countdownTrigger');
 const calculateDeadline = require("./deadlineCalculations");
+const dioDailyThanks = require("./dioDailyThanks");
 let fs = require("fs");
 
 
@@ -24,7 +25,7 @@ router.get("/:executionId", async (req, res, next) => {
 /* Add a review. */
 router.post("/selfReview", async (req, res, next) => {
   const { userId, executionId, comment, difficulty, reactivity } = req.body;
-  var parameters = JSON.parse(fs.readFileSync("parameters.json", "utf8"));
+  const parameters = JSON.parse(fs.readFileSync("parameters.json", "utf8"));
   const ED = parameters.autoEvaluation.difficulty[difficulty];
   const ER = parameters.autoEvaluation.reactivity[reactivity];
   const ExC = 0.1;
@@ -34,6 +35,7 @@ router.post("/selfReview", async (req, res, next) => {
   try {
       executeSQLRequest(sql, [executionId, userId, comment, difficulty, reactivity]
     );
+    
   } catch (error) {
     console.error(error);
     res.status(500).send({ error: "Internal Server Error" });
@@ -48,8 +50,15 @@ router.post("/selfReview", async (req, res, next) => {
 
   if (responseValue === 24 || responseValue === 48 || responseValue === 72) {
       startCountdown(responseValue, executionId);
+      
   }else{
     executeSQLRequest(`UPDATE users SET thanks = thanks + ? WHERE id = ?;`, [Math.ceil(responseValue), userId]);
+      // insertion des thanks dans la table DailyThanks
+    /*const rows = await executeSQLRequest(`SELECT id, id_ceo FROM dio WHERE id_execution = ?`, [executionId]);
+    const dio_id = rows[0].id;
+    const ceo_id = rows[0].id_ceo;*/
+      
+    await dioDailyThanks(Math.ceil(responseValue), 1, 1); // à revoir en premier les params
 
   }
 
