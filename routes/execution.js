@@ -156,14 +156,13 @@ router.post("/setInReview", function (req, res, next) {
 router.post("/updateStatus", function (req, res, next) {
   const executionId = req.body.executionId;
   const status = req.body.updatedStatut;
-  const remaining_time = req.body.remaining_time;
 
   const connection = createConnection();
-  sql = `UPDATE execution SET status_ = ?,  remaining_time = ? WHERE id = ?`;
+  sql = `UPDATE execution SET status_ = ? WHERE id = ?`;
 
   connection.query(
     sql,
-    [status, remaining_time, executionId ],
+    [status,  executionId],
     (err) => {
       if (err) {
         res.status(500);
