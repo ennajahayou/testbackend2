@@ -1,103 +1,99 @@
-var express = require("express");
-var router = express.Router();
-const createConnection = require("../dataBaseConnection");
+let express = require("express");
+let router = express.Router();
+const executeSQLRequest = require("./database");
+const startCountdown = require('./countdownTrigger');
 const calculateDeadline = require("./deadlineCalculations");
-var fs = require("fs");
+const dioDailyThanks = require("./dioDailyThanks");
+let fs = require("fs");
+
 
 /* GET the text of a review. */
-router.get("/:executionId", function (req, res, next) {
-  const connection = createConnection();
+router.get("/:executionId", async (req, res, next) => {
   const { executionId } = req.params;
-
-  const sql = `SELECT exec_content FROM execution WHERE id = ?`;
-  connection.query(sql, [executionId], (err, rows) => {
-    if (err) {
-      console.log(err);
-      connection.close();
-    }
-
+  try {
+    const rows = await executeSQLRequest(
+      `SELECT exec_content FROM execution WHERE id = ?`,
+      [executionId]
+    );
     res.send(rows[0]);
-
-    connection.close();
-  });
+  } catch (error) {
+    console.error(error);
+    res.status(500).send({ error: "Internal Server Error" });
+  }
 });
 
 /* Add a review. */
 router.post("/selfReview", async (req, res, next) => {
-  const connection = createConnection();
   const { userId, executionId, comment, difficulty, reactivity } = req.body;
-  var parameters = JSON.parse(fs.readFileSync("parameters.json", "utf8"));
+  const parameters = JSON.parse(fs.readFileSync("parameters.json", "utf8"));
   const ED = parameters.autoEvaluation.difficulty[difficulty];
   const ER = parameters.autoEvaluation.reactivity[reactivity];
-
-  const responseValue = (ED === 1 && ER === 1) || (ED === 1 && ER === 4) || (ED === 4 && ER === 1)
-  ? 1
-  : await calculateDeadline(reactivity, difficulty);
-
-  
-
+  const ExC = 0.1;
+  const ExCP = 0.05;
 
   const sql = `INSERT INTO review (id_execution, id_issuer, comments_, difficulty, reactivity) VALUES (?, ?, ?, ?, ?)`;
-  connection.query(
-    sql,
-    [executionId, userId, comment, difficulty, reactivity],
-    (err, rows) => {
-      if (err) {
-        console.log(err);
-        connection.close();
-      }
+  try {
+      executeSQLRequest(sql, [executionId, userId, comment, difficulty, reactivity]
+    );
+    
+  } catch (error) {
+    console.error(error);
+    res.status(500).send({ error: "Internal Server Error" });
+  }
 
-      // Envoyez la réponse au frontend
-      res.send({ data: { rows, responseValue } });
+  const responseValue = (ED === 1 && ER === 1) || (ED === 1 && ER === 4) || (ED === 4 && ER === 1)
+    ? (ED * ER) * (1 + ExC + ExCP)
+    : await calculateDeadline(reactivity, difficulty);
+
+  // Envoyez la réponse au frontend
+  res.send({ data: { responseValue } });
+
+  if (responseValue === 24 || responseValue === 48 || responseValue === 72) {
+      startCountdown(responseValue, executionId);
       
+  }else{
+    executeSQLRequest(`UPDATE users SET thanks = thanks + ? WHERE id = ?;`, [Math.ceil(responseValue), userId]);
+      // insertion des thanks dans la table DailyThanks
+    /*const rows = await executeSQLRequest(`SELECT id, id_ceo FROM dio WHERE id_execution = ?`, [executionId]);
+    const dio_id = rows[0].id;
+    const ceo_id = rows[0].id_ceo;*/
+      
+    await dioDailyThanks(Math.ceil(responseValue), 1, 1); // à revoir en premier les params
 
+  }
 
-      connection.close();
-    }
-  );
 });
-
-router.post("/peerReview", function (req, res, next) {
-  const connection = createConnection();
+router.post("/peerReview", async (req, res, next) => {
   const { userId, executionId, comments, expectations, reactivity } = req.body;
-
   const sql = `INSERT INTO peer_review (id_execution, id_issuer, comments, expectations, reactivity) VALUES (?, ?, ?, ?, ?)`;
-
-  connection.query(
-    sql,
-    [executionId, userId, comments, expectations, reactivity],
-    (err, rows) => {
-      if (err) {
-        console.log(err);
-        connection.close();
-      }
-
-      res.send(rows);
-
-      connection.close();
-    }
-  );
+  try {
+    const rows = await executeSQLRequest(
+      sql,
+      [executionId, userId, comments, expectations, reactivity]
+    );
+    res.send(rows);
+  } catch (error) {
+    console.error(error);
+    res.status(500).send({ error: "Internal Server Error" });
+  }
 });
 
-router.post("/ceoReview", function (req, res, next) {
-  const connection = createConnection();
+router.post("/ceoReview", async (req, res, next) => {
   const { executionId, userId, comments, expectations, reactivity } = req.body;
-
   const sql = `INSERT INTO ceo_review (id_execution, id_issuer, comments, expectations, reactivity) VALUES (?, ?, ?, ?, ?)`;
-  connection.query(
-    sql,
-    [executionId, userId, comments, expectations, reactivity],
-    (err, rows) => {
-      if (err) {
-        console.log(err);
-        connection.close();
-      }
-
-      res.send(rows);
-
-      connection.close();
-    }
-  );
+  try {
+    const rows = await executeSQLRequest(
+      sql,
+      [executionId, userId, comments, expectations, reactivity]
+    );
+    res.send(rows);
+  } catch (error) {
+    console.error(error);
+    res.status(500).send({ error: "Internal Server Error" });
+  }
 });
+
+
+
 
 module.exports = router;

@@ -60,7 +60,7 @@ router.post("/", function (req, res, next) {
 
 /* Add an execution with the work already done */
 router.post("/workDone", function (req, res, next) {
-  const { userId, executionDescription, dioId, texte } = req.body;
+  const { userId, executionDescription, dioId, texte,status,link } = req.body;
   const connection = createConnection();
   const sqlGetCEO = `SELECT id_ceo FROM dio WHERE id = ?`;
 
@@ -76,7 +76,7 @@ router.post("/workDone", function (req, res, next) {
     } else {
       const ceoId = rows[0].id_ceo;
       const sql = `
-        INSERT INTO execution (exec_description, id_talent, id_ceo, id_dio, status_, ceo_validated, exec_content) VALUES (?, ?, ?, ?, ?, ?, ?)`;
+        INSERT INTO execution (exec_description, id_talent, id_ceo, id_dio, status_, ceo_validated, exec_content,link) VALUES (?, ?, ?, ?, ?, ?, ?,?)`;
       connection.query(
         sql,
         [
@@ -84,9 +84,10 @@ router.post("/workDone", function (req, res, next) {
           userId,
           userId,
           dioId,
-          "In review",
+          status,
           ceoId == userId,
           texte,
+          link
         ],
         (err, rows) => {
           if (err) {
@@ -133,13 +134,14 @@ router.post("/setInReview", function (req, res, next) {
   const executionId = req.body.executionId;
   const userId = req.body.userId;
   const execContent = req.body.execContent;
+  const status = req.body.statut;
 
   const connection = createConnection();
   sql = `UPDATE execution SET status_ = ?, id_talent = ?, exec_content = ? WHERE id = ?`;
 
   connection.query(
     sql,
-    ["In review", userId, execContent, executionId],
+    [status, userId, execContent, executionId],
     (err) => {
       if (err) {
         res.status(500);
@@ -150,5 +152,74 @@ router.post("/setInReview", function (req, res, next) {
     }
   );
 });
+
+router.post("/updateStatus", function (req, res, next) {
+  const executionId = req.body.executionId;
+  const status = req.body.updatedStatut;
+  const remaining_time = req.body.remaining_time;
+
+  const connection = createConnection();
+  sql = `UPDATE execution SET status_ = ?,  remaining_time = ? WHERE id = ?`;
+
+  connection.query(
+    sql,
+    [status, remaining_time, executionId ],
+    (err) => {
+      if (err) {
+        res.status(500);
+      } else {
+        res.status(200).send("Execution in review");
+      }
+      connection.close();
+    }
+  );
+});
+
+router.post("/updateRemainingTime", function (req, res, next) {
+  const { executionId, remainingTime } = req.body;
+
+  const connection = createConnection();
+
+  connection.query(
+    `UPDATE execution
+     SET remaining_time = ?,
+     WHERE id = ?`,
+    [remainingTime, executionId],
+    (error, results) => {
+      if (error) {
+        console.error("Error in query:", error);
+        return res.status(500).send("Error in database operation.");
+      }
+
+      res.status(200).send("Remaining time updated successfully");
+      connection.end();
+    }
+  );
+});
+
+router.post("/NotYet", function (req, res, next) {
+  const { executionId, feedback , status} = req.body;
+
+  const connection = createConnection();
+
+  connection.query(
+    `UPDATE execution
+     SET ceo_feedback = ?,
+         status_ = ?,
+         remaining_time = ?
+     WHERE id = ?`,
+    [feedback,status,null, executionId],
+    (error, results) => {
+      if (error) {
+        console.error("Error in query:", error);
+        return res.status(500).send("Error in database operation.");
+      }
+
+      res.status(200).send("Remaining time updated successfully");
+      connection.end();
+    }
+  );
+});
+
 
 module.exports = router;
