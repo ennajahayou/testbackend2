@@ -2,7 +2,7 @@ const schedule = require('node-schedule');
 const executeSQLRequest = require('./database');
 
 // Planifie la tâche à 23h59 chaque jour
-const job = schedule.scheduleJob('19 23 * * *', async () => {
+const job = schedule.scheduleJob('59 23 * * *', async () => {
   console.log('Il est 23H59.');
   // Vérifie si la date d'aujourd'hui existe dans la table dailythanks
   const checkQuery = 'SELECT COUNT(*) AS count FROM dailythanks WHERE day = CURRENT_DATE';
