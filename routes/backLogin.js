@@ -1,7 +1,7 @@
 // Importez les modules nécessaires
 const express = require("express");
 const router = express.Router();
-//const jwt = require('jsonwebtoken');
+const jwt = require('jsonwebtoken');
 const bodyParser = require("body-parser");
 const cors = require("cors");
 const executeSQLRequest = require("./database"); 
@@ -33,6 +33,10 @@ router.post("/api/login", async (req, res) => {
                 userId: userId,
                 userName: userName,
                 isCEO: row[0].is_userId_ceo,
+                token : jwt.sign(
+                  { userId: userId },
+                  'RANDOM_SECRET_TOKEN_THANKSANDTIP',
+                  { expiresIn: '24h' })
               });
             })
             .catch((err) => {

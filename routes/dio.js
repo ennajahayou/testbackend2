@@ -56,7 +56,7 @@ router.post("/", function (req, res, next) {
     ceo_review.comments AS ceo_comments,
     ceo_review.expectations AS ceo_expectations,
     ceo_review.reactivity AS ceo_reactivity,
-    execution.ceo_feedback,
+    execution.ceo_feedback_notYet,
     execution.remaining_time,
     execution.link,
     execution.creation_date,
@@ -101,7 +101,7 @@ router.post("/", function (req, res, next) {
           ceo_comments: row.ceo_comments,
           ceo_expectations: row.ceo_expectations,
           ceo_reactivity: row.ceo_reactivity,
-          ceo_feedback: row.ceo_feedback,
+          ceo_feedback_notYet: row.ceo_feedback_notYet,
           remaining_time: row.remaining_time,
           link: row.link,
           creation_date: row.creation_date,
@@ -145,10 +145,13 @@ router.get("/execution", function (req, res, next) {
     ceo_review.comments AS ceo_comments,
     ceo_review.expectations AS ceo_expectations,
     ceo_review.reactivity AS ceo_reactivity,
-    execution.ceo_feedback,
+    execution.ceo_feedback_notYet,
     execution.remaining_time,
     execution.link,
-    execution.creation_date
+    execution.creation_date,
+    execution.score_thanks,
+    (SELECT GROUP_CONCAT(id_issuer ORDER BY id) FROM peer_review WHERE id_execution = execution.id) AS peer_review_ids,
+    (SELECT GROUP_CONCAT(comments ORDER BY id) FROM peer_review WHERE id_execution = execution.id) AS peer_review_comments
 FROM 
     execution 
 JOIN 

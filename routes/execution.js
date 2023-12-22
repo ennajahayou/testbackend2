@@ -204,7 +204,7 @@ router.post("/NotYet", function (req, res, next) {
 
   connection.query(
     `UPDATE execution
-     SET ceo_feedback = ?,
+     SET ceo_feedback_notYet = ?,
          status_ = ?,
          remaining_time = ?
      WHERE id = ?`,
@@ -220,6 +220,32 @@ router.post("/NotYet", function (req, res, next) {
     }
   );
 });
+
+
+router.post("/Rejected", function (req, res, next) {
+  const { executionId, feedback , status} = req.body;
+
+  const connection = createConnection();
+
+  connection.query(
+    `UPDATE execution
+     SET ceo_feedback_rejected = ?,
+         status_ = ?,
+         remaining_time = ?
+     WHERE id = ?`,
+    [feedback,status,null, executionId],
+    (error, results) => {
+      if (error) {
+        console.error("Error in query:", error);
+        return res.status(500).send("Error in database operation.");
+      }
+
+      res.status(200).send("Remaining time updated successfully");
+      connection.end();
+    }
+  );
+});
+
 
 
 module.exports = router;

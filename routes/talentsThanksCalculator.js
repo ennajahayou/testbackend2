@@ -74,6 +74,7 @@ const talentsThanksCalculator = async (executionId) => {
   try {
     // Mettre à jour la colonne thanks dans la table users
     await executeSQLRequest(`UPDATE users SET thanks = thanks + ? WHERE id = ?;`, [Math.ceil(thanks), selfReview[0].id_issuer]);
+    await executeSQLRequest(`UPDATE execution SET score_thanks = ?, status_ = ? WHERE id = ?;`,[Math.ceil(thanks), "Achieved",selfReview[0].id_execution]);
     // insertion des thanks dans la table DailyThanks
     await dioDailyThanks(Math.ceil(thanks), 1, 1);
 
